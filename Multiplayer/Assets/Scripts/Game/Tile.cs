@@ -48,4 +48,14 @@ public class Tile : MonoBehaviour {
                 break;
         }
     }
+
+    public void OnTileSelected()
+    {
+        GetComponentInChildren<Renderer>().material.color = Color.magenta;
+    }
+
+    public void OnTileDeselected()
+    {
+        GetComponentInChildren<Renderer>().material.color = Color.green;
+    }
 }

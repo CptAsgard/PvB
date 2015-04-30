@@ -12,7 +12,7 @@ public class UnitMover : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        Target.onMoveTo += StartSmoothTowards;
+
 	}
 
     void StartSmoothTowards( GridPosition p ) {

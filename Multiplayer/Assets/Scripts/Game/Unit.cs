@@ -26,21 +26,13 @@ public class Unit : MonoBehaviour {
     public Side Side;
     public UnitType Type;
 
-    public delegate void OnMoveTo( GridPosition to );
-    public OnMoveTo onMoveTo;
-
-    public delegate void OnSwapWith( GridPosition target );
-    public OnMoveTo onSwapWith;
-
-    public void MoveToPosition( GridPosition tile ) 
+    public void MoveToTile( Tile tile ) 
     {
-        // Trigger event
-        onMoveTo( tile );
+
     }
 
-    public void SwapWith( GridPosition tile ) 
+    public void SwapWith( Tile tile ) 
     {
-        // Trigger event
-        onSwapWith( tile );
+
     }
 }
