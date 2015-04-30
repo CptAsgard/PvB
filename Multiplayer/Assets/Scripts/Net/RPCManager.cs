@@ -13,6 +13,7 @@ public class RPCManager : MonoBehaviour {
 
     void Update()
     {
+        //Test packet.
         if (Input.GetKeyDown(KeyCode.Q) && NetConnector.SINGLETON.Connected)
             SendMove(new Vector3(1, 12, 111), new Vector3(411, 2.8f, 22.2f));
     }

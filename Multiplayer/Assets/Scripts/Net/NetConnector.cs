@@ -6,10 +6,10 @@ public class NetConnector : MonoBehaviour
 {
     public static NetConnector SINGLETON;
 
-    public string LocalAddress;
-    public bool Connected;
-    private string host;
-    private const int PORT = 42594;
+    public string LocalAddress;     //Local IP address.
+    public bool Connected;          //Whether we're connected with an opponent.
+    private string host;            //The host address.
+    private const int PORT = 42594; //The host port.
 
 
     void Awake()
@@ -58,31 +58,47 @@ public class NetConnector : MonoBehaviour
         yield return null;
     }
 
-    void OnFailedToConnect()
+    /**
+     * Failed to connect to a server.
+     */
+    void OnFailedToConnect(NetworkConnectionError error)
     {
-        Debug.Log("Failed to connect.");
-        /*if(Network.peerType != NetworkPeerType.Server)
-        StartCoroutine(Retry());*/
+        if (Network.peerType != NetworkPeerType.Server)
+            StartCoroutine(Retry());
     }
 
+    /**
+     * {SERVER}
+     * Player started server.
+     */
     void OnServerInitialized()
     {
         Debug.Log("Hosting on " + LocalAddress + ".");
     }
 
+
+    /**
+     * {SERVER}
+     * Player connected to server.
+     */
     void OnConnectedToServer()
     {
         Connected = true;
         Debug.Log("Connected to " + host + ".");
     }
 
-    void OnDisconnectedFromServer()
+    /**
+     * {CLIENT}
+     * Player disconnected from server.
+     */
+    void OnDisconnectedFromServer(NetworkDisconnection info)
     {
         Connected = false;
         Debug.Log("Disconnected from " + host + ".");
     }
 
     /**
+     * {CLIENT}
      * Player connected to server.
      */
     void OnPlayerConnected(NetworkPlayer player)
@@ -92,6 +108,7 @@ public class NetConnector : MonoBehaviour
     }
 
     /**
+     * {SERVER}
      * Player disconnected from server.
      */
     void OnPlayerDisconnected(NetworkPlayer player)
