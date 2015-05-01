@@ -25,7 +25,7 @@ public class UnitPanelSelectionUI : MonoBehaviour
 
     void Update()
     {
-        if( Input.GetMouseButtonUp( 0 ) )
+        if( Input.GetMouseButtonUp( 0 ) || ( Input.touchCount > 0 && Input.GetTouch( 0 ).phase == TouchPhase.Ended ) )
         {
             if( SelectedPanel != null && UnitSelectorSelection.SINGLETON.SelectedTile != null )
                 TrySpawnUnit( SelectedPanel.Type );
