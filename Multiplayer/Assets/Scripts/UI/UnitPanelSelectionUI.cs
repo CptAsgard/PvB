@@ -61,5 +61,7 @@ public class UnitPanelSelectionUI : MonoBehaviour
 
         SelectedPanel.AmountSpawnable--;
         SelectedPanel = null;
+
+        UnitSelectorSelection.SINGLETON.SelectTile( null );
     }
 }

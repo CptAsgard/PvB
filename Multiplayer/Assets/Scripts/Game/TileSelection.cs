@@ -21,10 +21,10 @@ public class TileSelection : MonoBehaviour
                 if( hit.collider.gameObject == gameObject )
                 {
                     Select();
+                } else if( ( hit.collider.tag == "Terrain" || hit.collider.tag == "Tile" ) && !UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject() )
+                {
+                    Deselect();
                 }
-            } else
-            {
-                Deselected();
             }
         }
     }
@@ -34,7 +34,7 @@ public class TileSelection : MonoBehaviour
         UnitSelectorSelection.SINGLETON.SelectTile( tile );
     }
 
-    void Deselected()
+    void Deselect()
     {
         UnitSelectorSelection.SINGLETON.SelectTile( null );
     }

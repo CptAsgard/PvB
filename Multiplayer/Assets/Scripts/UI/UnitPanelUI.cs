@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System.Collections;
 
-public class UnitPanelUI : MonoBehaviour, IPointerClickHandler, IDragHandler, IDropHandler
+public class UnitPanelUI : MonoBehaviour, IPointerClickHandler, IDragHandler, IEndDragHandler
 {
     public UnitType Type;
     public int AmountSpawnable;
@@ -31,7 +31,7 @@ public class UnitPanelUI : MonoBehaviour, IPointerClickHandler, IDragHandler, ID
         _transform.position += new Vector3( eventData.delta.x, eventData.delta.y );
     }
 
-    public void OnDrop( PointerEventData eventData )
+    public void OnEndDrag(PointerEventData eventData)
     {
         ReturnToStartingPos();
     }
