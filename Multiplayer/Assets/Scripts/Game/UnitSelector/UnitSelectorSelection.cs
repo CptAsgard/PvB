@@ -20,10 +20,7 @@ public class UnitSelectorSelection : MonoBehaviour
             SelectedTile.OnTileDeselected();
 
         // Select new if not same tile
-        if( SelectedTile != tile )
-            SelectedTile = tile;
-        else
-            SelectedTile = null;
+        SelectedTile = tile;
 
         // Trigger select event
         if( SelectedTile != null )

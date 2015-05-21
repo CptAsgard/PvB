@@ -12,6 +12,9 @@ public class TileSelection : MonoBehaviour
 
     void Update()
     {
+        if( tile.Side == Side.BLUE )
+            this.enabled = false;
+
         if( Input.GetMouseButtonUp( 0 ) || ( Input.touchCount > 0 && Input.GetTouch( 0 ).phase == TouchPhase.Ended ) )
         {
             var ray = Camera.main.ScreenPointToRay( Input.mousePosition );

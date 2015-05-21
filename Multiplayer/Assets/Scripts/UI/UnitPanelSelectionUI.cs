@@ -51,10 +51,14 @@ public class UnitPanelSelectionUI : MonoBehaviour
 
     public void TrySpawnUnit( UnitType type )
     {
-        if( UnitSelectorSelection.SINGLETON.SelectedTile == null ) return;
-        if( SelectedPanel.AmountSpawnable <= 0 ) return;
+        if( UnitSelectorSelection.SINGLETON.SelectedTile == null ) 
+            return;
 
-        // TODO if( client's side != side clicked ) return
+        if( SelectedPanel.AmountSpawnable <= 0 ) 
+            return;
+
+        if( UnitSelectorSelection.SINGLETON.SelectedTile.UnitOnTile != null )
+            return;
 
         GameObject spawner = GameObject.Instantiate( Resources.Load( "UnitSpawner" ) as GameObject );
         spawner.GetComponent<UnitSpawner>().Init( UnitSelectorSelection.SINGLETON.SelectedTile, type );

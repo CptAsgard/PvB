@@ -25,7 +25,7 @@ public class Tile : MonoBehaviour {
         }
     }
 
-    public Unit Contains;
+    public Unit UnitOnTile;
 
     [SerializeField]
     private Material BlueMaterial;
@@ -56,6 +56,6 @@ public class Tile : MonoBehaviour {
 
     public void OnTileDeselected()
     {
-        GetComponentInChildren<Renderer>().material.color = Color.green;
+        GetComponentInChildren<Renderer>().material.color = (Side == global::Side.BLUE ? BlueMaterial.color : RedMaterial.color );
     }
 }
