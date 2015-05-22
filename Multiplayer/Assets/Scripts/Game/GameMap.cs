@@ -38,4 +38,19 @@ public class GameMap : MonoBehaviour {
 
         Tiles.Clear();
     }
+
+    public string EncodeFormation()
+    {
+        string encodedFormation = "";
+
+        foreach (Tile t in Tiles)
+            encodedFormation += t.Contains.Type;
+
+        return encodedFormation;
+    }
+
+    public void DecodeFormation()
+    {
+
+    }
 }

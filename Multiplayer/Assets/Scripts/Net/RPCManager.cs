@@ -28,4 +28,15 @@ public class RPCManager : MonoBehaviour {
     {
         Debug.Log("Move received. from " + from + " to " + to + ".");
     }
+
+    public void SendFormation(string encodedFormation)
+    {
+        Network.RPC("RPC_Formation", RPCMode.Others, encodedFormation);
+    }
+
+    [RPC]
+    public void RPC_Formation(string encodedFormation, NetworkMessageInfo info)
+    {
+        Debug.Log("Formation received: " + encodedFormation);
+    }
 }
