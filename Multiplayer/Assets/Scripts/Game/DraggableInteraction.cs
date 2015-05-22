@@ -43,7 +43,8 @@ public class DraggableInteraction {
         if( !swapFrom || !swapTo )
             return;
 
-        swapFrom.Contains.SwapWith( swapTo );
+        if( ValidMoveCheck.IsValidMove( swapFrom, swapTo ) )
+            swapFrom.Contains.SwapWith( swapTo );
     }
 
     void Spawn( UnitPanelUI unitPanel, Tile spawnOn )
