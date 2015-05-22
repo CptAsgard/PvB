@@ -1,12 +1,21 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class DraggableInteraction : MonoBehaviour {
-    public static DraggableInteraction SINGLETON;
+public class DraggableInteraction {
+    
+    private static DraggableInteraction _instance;
 
-    void Awake()
+    private DraggableInteraction() { }
+
+    public static DraggableInteraction SINGLETON
     {
-        SINGLETON = this;
+        get
+        {
+            if(_instance == null)
+                _instance = new DraggableInteraction();
+
+            return _instance;
+        }
     }
 
     public void HandleDraggableInteraction(Draggable a, Draggable b)
@@ -21,11 +30,33 @@ public class DraggableInteraction : MonoBehaviour {
 
         if (a.IsUIObject) //Try spawning a unit.
         {
-            Debug.Log("Spawn");
+            Spawn( a.GetComponent<UnitPanelUI>(), b.GetComponent<Tile>() );
         }
         else //Try swapping.
         {
-            Debug.Log("Swap");
+            Swap( a.GetComponent<Tile>(), b.GetComponent<Tile>() );
         }
+    }
+
+    void Swap( Tile swapFrom, Tile swapTo )
+    {
+        if( !swapFrom || !swapTo )
+            return;
+
+        swapFrom.Contains.SwapWith( swapTo );
+    }
+
+    void Spawn( UnitPanelUI unitPanel, Tile spawnOn )
+    {
+        if( !unitPanel || !spawnOn ) // One or more objects are null
+            return;
+
+        if( unitPanel.AmountSpawnable <= 0 )
+            return;
+
+        GameObject spawner = GameObject.Instantiate( Resources.Load( "UnitSpawner" ) as GameObject );
+        spawner.GetComponent<UnitSpawner>().Init( spawnOn, unitPanel.Type );
+
+        unitPanel.AmountSpawnable--;
     }
 }

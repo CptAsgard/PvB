@@ -3,41 +3,35 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System.Collections;
 
-public class UnitPanelUI : MonoBehaviour, IPointerClickHandler, IDragHandler, IEndDragHandler
+public class UnitPanelUI : MonoBehaviour
 {
     public UnitType Type;
-    public int AmountSpawnable;
-
-    private UnitPanelSelectionUI selection;
-
-    private RectTransform _transform = null;
-    private Vector3 originalPos;
-
-    void Start()
+    
+    [SerializeField]
+    private int __amountSpawnable;
+    public int AmountSpawnable
     {
-        _transform = GetComponent<RectTransform>();
-        selection = transform.parent.GetComponent<UnitPanelSelectionUI>();
+        get {
+            return __amountSpawnable;
+        }
+        set {
+            if( __amountSpawnable <= 0 && value > 0 )
+                EnablePanel();
 
-        originalPos = _transform.position;
+            __amountSpawnable = value;
+
+            if( __amountSpawnable <= 0 )
+                DisablePanel();
+        }
     }
 
-    public void OnPointerClick( PointerEventData eventData )
+    void DisablePanel()
     {
-        selection.SelectedPanel = this;
+        gameObject.SetActive( false );
     }
 
-    public void OnDrag( PointerEventData eventData )
+    void EnablePanel()
     {
-        _transform.position += new Vector3( eventData.delta.x, eventData.delta.y );
-    }
-
-    public void OnEndDrag(PointerEventData eventData)
-    {
-        ReturnToStartingPos();
-    }
-
-    public void ReturnToStartingPos()
-    {
-        _transform.position = originalPos;
+        gameObject.SetActive( true );
     }
 }

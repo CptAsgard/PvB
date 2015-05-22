@@ -17,7 +17,7 @@ public class UnitSpawner : MonoBehaviour {
         var unit = g.GetComponent<Unit>();
 
         unit.OnTile = spawnOn;
-        spawnOn.UnitOnTile = unit;
+        spawnOn.Contains = unit;
 
         Destroy( this.gameObject );
     }

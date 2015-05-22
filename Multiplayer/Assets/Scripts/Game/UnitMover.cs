@@ -10,11 +10,6 @@ public class UnitMover : MonoBehaviour {
         Target = GetComponent<Unit>();
     }
 
-	// Use this for initialization
-	void Start () {
-
-	}
-
     void StartSmoothTowards( GridPosition p ) {
         Target.OnTile = GameMap.SINGLETON.GetTileAt( p );
 

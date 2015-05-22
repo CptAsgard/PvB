@@ -25,7 +25,21 @@ public class Tile : MonoBehaviour {
         }
     }
 
-    public Unit UnitOnTile;
+    private Unit __contains;
+    public Unit Contains
+    {
+        get
+        {
+            return __contains;
+        }
+        set
+        {
+            __contains = value;
+
+            if( value )
+                __contains.OnTile = this;
+        }
+    }
 
     [SerializeField]
     private Material BlueMaterial;
@@ -47,15 +61,5 @@ public class Tile : MonoBehaviour {
                 gameObject.GetComponentInChildren<Renderer>().material = RedMaterial;
                 break;
         }
-    }
-
-    public void OnTileSelected()
-    {
-        GetComponentInChildren<Renderer>().material.color = Color.magenta;
-    }
-
-    public void OnTileDeselected()
-    {
-        GetComponentInChildren<Renderer>().material.color = (Side == global::Side.BLUE ? BlueMaterial.color : RedMaterial.color );
     }
 }

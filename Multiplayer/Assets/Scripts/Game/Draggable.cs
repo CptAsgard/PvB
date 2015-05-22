@@ -5,9 +5,11 @@ using System.Collections;
 
 public class Draggable : MonoBehaviour, IDragHandler, IEndDragHandler
 {
+    [HideInInspector]
     public bool IsUIObject;     //Object is an UI element.
-    public bool DragPhysically; //Object will be physically dragged.
+    public bool DragPhysically; //Object will change position to follow the cursor.
     public bool ReturnToOrigin; //Object will return to its original position after being dragged.
+
     private Vector3 origin;
 
     void Awake() {

@@ -11,27 +11,6 @@ public class UnitPanelSelectionUI : MonoBehaviour
         SINGLETON = this;
     }
 
-    [SerializeField]
-    private UnitPanelUI __s;
-    public UnitPanelUI SelectedPanel {
-        get {
-            return __s;
-        } set {
-            OnPanelDeselected( __s );
-            __s = value;
-            OnPanelSelected( __s );
-        }
-    }
-
-    void Update()
-    {
-        if( Input.GetMouseButtonUp( 0 ) || ( Input.touchCount > 0 && Input.GetTouch( 0 ).phase == TouchPhase.Ended ) )
-        {
-            if( SelectedPanel != null && UnitSelectorSelection.SINGLETON.SelectedTile != null )
-                TrySpawnUnit( SelectedPanel.Type );
-        }
-    }
-
     private void OnPanelSelected( UnitPanelUI panel )
     {
         if( panel == null ) return;
@@ -51,21 +30,19 @@ public class UnitPanelSelectionUI : MonoBehaviour
 
     public void TrySpawnUnit( UnitType type )
     {
-        if( UnitSelectorSelection.SINGLETON.SelectedTile == null ) 
-            return;
+        //if( UnitSelectorSelection.SINGLETON.SelectedTile == null ) 
+        //    return;
 
-        if( SelectedPanel.AmountSpawnable <= 0 ) 
-            return;
+        //if( SelectedPanel.AmountSpawnable <= 0 ) 
+        //    return;
 
-        if( UnitSelectorSelection.SINGLETON.SelectedTile.UnitOnTile != null )
-            return;
+        //if( UnitSelectorSelection.SINGLETON.SelectedTile.UnitOnTile != null )
+        //    return;
 
-        GameObject spawner = GameObject.Instantiate( Resources.Load( "UnitSpawner" ) as GameObject );
-        spawner.GetComponent<UnitSpawner>().Init( UnitSelectorSelection.SINGLETON.SelectedTile, type );
+        //GameObject spawner = GameObject.Instantiate( Resources.Load( "UnitSpawner" ) as GameObject );
+        //spawner.GetComponent<UnitSpawner>().Init( UnitSelectorSelection.SINGLETON.SelectedTile, type );
 
-        SelectedPanel.AmountSpawnable--;
-        SelectedPanel = null;
-
-        UnitSelectorSelection.SINGLETON.SelectTile( null );
+        //SelectedPanel.AmountSpawnable--;
+        //SelectedPanel = null;
     }
 }

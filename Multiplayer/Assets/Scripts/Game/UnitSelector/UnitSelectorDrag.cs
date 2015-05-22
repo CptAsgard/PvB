@@ -29,7 +29,7 @@ public class UnitSelectorDrag : MonoBehaviour
                 return;
 
             // Swap units (or not if there's nothing to swap with)!
-            startingTile.UnitOnTile.SwapWith( tileTo );
+            startingTile.Contains.SwapWith( tileTo );
         }
     }
 }
