@@ -4,8 +4,8 @@ using System.Collections.Generic;
 
 public class GameMap : MonoBehaviour {
 
-    public const int GRID_WIDTH = 3;
-    public const int GRID_HEIGHT = 10;
+    public const int GRID_WIDTH = 10;
+    public const int GRID_HEIGHT = 3;
 
     public List<Tile> Tiles;
 

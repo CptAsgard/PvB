@@ -27,7 +27,7 @@ public class GenerateMap : MonoBehaviour {
 
             t.Position = new GridPosition( i % GameMap.GRID_WIDTH, i / GameMap.GRID_WIDTH );
 
-            if( i / GameMap.GRID_WIDTH > 4 ) {
+            if( i % GameMap.GRID_WIDTH > 4 ) {
                 t.Side = Side.BLUE;
             } else {
                 t.Side = Side.RED;
