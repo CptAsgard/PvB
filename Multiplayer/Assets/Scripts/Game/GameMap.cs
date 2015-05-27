@@ -46,7 +46,8 @@ public class GameMap : MonoBehaviour {
 
         foreach (Tile t in Tiles)
         {
-            Debug.Log(t.Position.x + ", " + t.Position.y);
+            if( t.Side == Side.RED )
+                continue;
 
             if (t.Contains)
                 encodedFormation += (int) t.Contains.Type;
@@ -76,8 +77,3 @@ public class GameMap : MonoBehaviour {
         Debug.Log("Complete formation: " + EncodeFormation());
     }
 }
-
-// check formation if filled, skip red tiles
-// if formation full return true
-// if true show button
-// if button pressed EncodeFormation() and RPC
