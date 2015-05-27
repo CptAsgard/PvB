@@ -21,6 +21,8 @@ public class FormationReadyButtonUI : MonoBehaviour, MessageReceiver<ClientForma
 
     public void OnButtonClick()
     {
-        // Send formation
+        string formation = GameMap.SINGLETON.EncodeFormation();
+        Debug.Log(formation);
+        GameMap.SINGLETON.DecodeFormation(formation);
     }
 }

@@ -47,7 +47,7 @@ public class DraggableInteraction {
             swapFrom.Contains.SwapWith( swapTo );
     }
 
-    void Spawn( UnitPanelUI unitPanel, Tile spawnOn )
+    public void Spawn( UnitPanelUI unitPanel, Tile spawnOn )
     {
         if( !unitPanel || !spawnOn ) // One or more objects are null
             return;

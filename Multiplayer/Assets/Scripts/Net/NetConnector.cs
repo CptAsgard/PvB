@@ -19,7 +19,7 @@ public class NetConnector : MonoBehaviour
 
 	void Start () 
     {
-        //Make sure the NetConnector exists regardless of the scene.
+        //Make sure the NetConnector exists regardless of what scene we're in.
         DontDestroyOnLoad(gameObject);
 
         //Get local address.
@@ -34,7 +34,7 @@ public class NetConnector : MonoBehaviour
     public void Host()
     {
         Debug.Log("Setting up server...");
-        Network.InitializeServer(2, PORT, true);
+        Network.InitializeServer(1, PORT, true);
     }
 
     /**
@@ -85,6 +85,8 @@ public class NetConnector : MonoBehaviour
     {
         Connected = true;
         Debug.Log("Connected to " + host + ".");
+        if (Application.loadedLevel == 0)
+            Application.LoadLevel(1);
     }
 
     /**
@@ -95,6 +97,8 @@ public class NetConnector : MonoBehaviour
     {
         Connected = false;
         Debug.Log("Disconnected from " + host + ".");
+        if (Application.loadedLevel == 1)
+            Application.LoadLevel(0);
     }
 
     /**
@@ -105,6 +109,8 @@ public class NetConnector : MonoBehaviour
     {
         Connected = true;
         Debug.Log("Player connected from " + player.ipAddress + ":" + player.port);
+        if(Application.loadedLevel == 0)
+            Application.LoadLevel(1);
     }
 
     /**
@@ -115,5 +121,7 @@ public class NetConnector : MonoBehaviour
     {
         Connected = false;
         Debug.Log("Player disconnected from " + player.ipAddress + ":" + player.port);
+        if (Application.loadedLevel == 1)
+            Application.LoadLevel(0);
     }
 }

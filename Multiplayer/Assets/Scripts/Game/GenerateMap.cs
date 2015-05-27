@@ -38,6 +38,8 @@ public class GenerateMap : MonoBehaviour {
 
         yield return null;
 
+        foreach (Tile t in GameMap.SINGLETON.Tiles)
+            Debug.Log(t.Position.x + ", " + t.Position.y + ": " + t);
         // No longer needed after map generation is done
         Destroy( this );
     }
