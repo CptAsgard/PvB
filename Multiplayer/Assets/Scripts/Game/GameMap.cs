@@ -3,7 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 
-public class GameMap : MonoBehaviour, MessageReceiver<NetworkClientInitialized>, MessageReceiver<NetworkServerInitialized> {
+using System.Linq;
+
+public class GameMap : MonoBehaviour, MessageReceiver<NetworkClientInitialized>, MessageReceiver<NetworkServerInitialized>
+{
 
     public const int GRID_WIDTH = 10;
     public const int GRID_HEIGHT = 3;
@@ -12,15 +15,18 @@ public class GameMap : MonoBehaviour, MessageReceiver<NetworkClientInitialized>,
 
     public static GameMap SINGLETON;
 
-    void Awake() {
+    void Awake()
+    {
         SINGLETON = this;
 
         if( Tiles == null )
             Tiles = new List<Tile>( 0 );
     }
 
-    public Tile GetTileAt( GridPosition pos ) {
-        foreach( Tile t in Tiles ) {
+    public Tile GetTileAt( GridPosition pos )
+    {
+        foreach( Tile t in Tiles )
+        {
             if( t.Position.x == pos.x && t.Position.y == pos.y )
                 return t;
         }
@@ -28,12 +34,39 @@ public class GameMap : MonoBehaviour, MessageReceiver<NetworkClientInitialized>,
         return null;
     }
 
-    public void MoveRowForwards( int row, Side side ) {
+    public void MoveRowForwards( int row, Side side )
+    {
+        /*var tilesBySide = from tile in Tiles
+                          group tile by tile.Side;*/
 
+        var tiles = Tiles.Where( tile => tile.Contains ).ToList<Tile>();
+
+        foreach( Tile tile in tiles )
+        {
+            if( tile.Position.y != row )
+                continue;
+
+            if( tile.Contains.Side != side )
+                continue;
+
+            GridPosition moveTo;
+
+            if( tile.Contains.Side == Side.RED )
+            {
+                moveTo = new GridPosition( tile.Position.x + 1, tile.Position.y );
+            } else
+            {
+                moveTo = new GridPosition( tile.Position.x - 1, tile.Position.y );
+            }
+
+            tile.Contains.SwapWith( GetTileAt( moveTo ) );
+        }
     }
 
-    public void ClearTiles() {
-        foreach( Tile t in Tiles ) {
+    public void ClearTiles()
+    {
+        foreach( Tile t in Tiles )
+        {
             Destroy( t.gameObject );
         }
 
@@ -44,31 +77,31 @@ public class GameMap : MonoBehaviour, MessageReceiver<NetworkClientInitialized>,
     {
         string encodedFormation = "";
 
-        foreach (Tile t in Tiles)
+        foreach( Tile t in Tiles )
         {
             if( t.Side == Side.RED )
                 continue;
 
-            if (t.Contains)
+            if( t.Contains )
                 encodedFormation += (int) t.Contains.Type;
         }
 
         return encodedFormation;
     }
 
-    public void DecodeFormation(string formation)
+    public void DecodeFormation( string formation, Side side )
     {
         char[] formationArray = formation.ToCharArray();
         int i = 0;
 
-        for (int y = 0; y < GRID_HEIGHT; y++)
+        for( int y = 0; y < GRID_HEIGHT; y++ )
         {
-            for (int x = (GRID_WIDTH / 2) - 1; x >= 0; x--)
+            for( int x = ( GRID_WIDTH / 2 ) - 1; x >= 0; x-- )
             {
-                Tile tile = GetTileAt(new GridPosition(x, y));
+                Tile tile = GetTileAt( new GridPosition( x, y ) );
 
-                GameObject spawner = GameObject.Instantiate(Resources.Load("UnitSpawner") as GameObject);
-                spawner.GetComponent<UnitSpawner>().Init(tile, (UnitType) int.Parse(formationArray[i].ToString()));
+                GameObject spawner = GameObject.Instantiate( Resources.Load( "UnitSpawner" ) as GameObject );
+                spawner.GetComponent<UnitSpawner>().Init( tile, (UnitType) int.Parse( formationArray[ i ].ToString() ), side );
 
                 i++;
             }

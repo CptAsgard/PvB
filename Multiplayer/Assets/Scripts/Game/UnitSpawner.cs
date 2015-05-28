@@ -8,7 +8,7 @@ public class UnitSpawner : MonoBehaviour {
     private Tile SpawnOnTile;
     private UnitType Type;
 
-    public void Init( Tile spawnOn, UnitType type )
+    public void Init( Tile spawnOn, UnitType type, Side side )
     {
         transform.position = spawnOn.transform.position;
         this.Type = type;
@@ -18,6 +18,7 @@ public class UnitSpawner : MonoBehaviour {
 
         unit.OnTile = spawnOn;
         unit.Type = type;
+        unit.Side = side;
 
         spawnOn.Contains = unit;
 

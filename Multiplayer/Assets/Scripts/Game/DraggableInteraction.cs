@@ -26,8 +26,6 @@ public class DraggableInteraction {
         if (a.IsUIObject && b.IsUIObject) //Both objects are UI objects.
             return;
 
-        Debug.Log("Dragged " + a.gameObject.name + " onto " + b.gameObject.name);
-
         if (a.IsUIObject) //Try spawning a unit.
         {
             var tile = b.GetComponent<Tile>();
@@ -64,7 +62,7 @@ public class DraggableInteraction {
             return;
 
         GameObject spawner = GameObject.Instantiate( Resources.Load( "UnitSpawner" ) as GameObject );
-        spawner.GetComponent<UnitSpawner>().Init( spawnOn, unitPanel.Type );
+        spawner.GetComponent<UnitSpawner>().Init( spawnOn, unitPanel.Type, Side.BLUE );
 
         unitPanel.AmountSpawnable--;
     }

@@ -38,6 +38,6 @@ public class RPCManager : MonoBehaviour {
     public void RPC_Formation(string encodedFormation, NetworkMessageInfo info)
     {
         Debug.Log("Formation received: " + encodedFormation);
-        GameMap.SINGLETON.DecodeFormation(encodedFormation);
+        GameMap.SINGLETON.DecodeFormation(encodedFormation, Side.RED);
     }
 }
