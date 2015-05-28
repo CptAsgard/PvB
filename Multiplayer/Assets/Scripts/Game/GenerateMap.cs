@@ -16,8 +16,7 @@ public class GenerateMap : MonoBehaviour {
 	}
 
     IEnumerator GenMap() {
-        GameObject root = new GameObject();
-        root.name = "- Tiles";
+        GameObject root = new GameObject("- Tiles");
 
         GameMap.SINGLETON.ClearTiles();
 
@@ -37,6 +36,8 @@ public class GenerateMap : MonoBehaviour {
         }
 
         yield return null;
+
+        root.transform.position = new Vector3( -0.625f, 5.007f, 0 );
 
         // No longer needed after map generation is done
         Destroy( this );

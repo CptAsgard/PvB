@@ -5,6 +5,8 @@ public static class ValidMoveCheck
 {
     public static Unit ResolveFight( Unit a, Unit b )
     {
+
+
         return a;
     }
 
@@ -24,7 +26,7 @@ public static class ValidMoveCheck
     private static bool IsValidMove_PlayState( Tile a, Tile b )
     {
         // If the distance between the two tiles is greater than 1, it's not a valid move
-        if( Mathf.Abs( ( a.Position.x - b.Position.x ) + ( a.Position.y - b.Position.y ) ) > 1 )
+        if( Vector2.Distance( new Vector2( a.Position.x, a.Position.y ), new Vector2( b.Position.x, b.Position.y ) ) > 1 )
             return false;
 
         GridPosition getAt;

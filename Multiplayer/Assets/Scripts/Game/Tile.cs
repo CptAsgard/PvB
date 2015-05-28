@@ -10,7 +10,7 @@ public class Tile : MonoBehaviour {
         }
         set {
             __side = value;
-            SetColor( value );
+            //SetColor( value );
         }
     }
 
@@ -48,7 +48,7 @@ public class Tile : MonoBehaviour {
     private Material RedMaterial;
 
     private void SetWorldPosition() {
-        gameObject.transform.position = new Vector3( Position.x * 1.5f, 0, Position.y * 1.5f );
+        gameObject.transform.position = new Vector3( (Position.x * 0.07f) - 0.025f, 0, (Position.y * 0.0755f) + 1.0245f );
     }
 
     private void SetColor( Side side ) {
