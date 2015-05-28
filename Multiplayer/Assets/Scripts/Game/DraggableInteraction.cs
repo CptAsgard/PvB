@@ -42,6 +42,7 @@ public class DraggableInteraction {
             first = a.GetComponent<Tile>();
             second = b.GetComponent<Tile>();
 
+            Debug.Log(first.Contains.Side + ", " + second.Contains.Side);
             if( second.Contains && first.Contains.Side != second.Contains.Side )
                 Fight( first, second );
             else
