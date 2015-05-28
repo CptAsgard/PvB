@@ -30,7 +30,13 @@ public class DraggableInteraction {
 
         if (a.IsUIObject) //Try spawning a unit.
         {
-            Spawn( a.GetComponent<UnitPanelUI>(), b.GetComponent<Tile>() );
+            var tile = b.GetComponent<Tile>();
+            var unit = a.GetComponent<UnitPanelUI>();
+
+            if( tile.Side == Side.RED )
+                return;
+
+            Spawn( unit, tile );
         }
         else //Try swapping.
         {
