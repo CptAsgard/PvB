@@ -5,7 +5,7 @@ public static class ValidMoveCheck {
 
     public static bool IsValidMove( Tile a, Tile b )
     {
-        if( GameStateController.CurrentState == GameState.PLANNING )
+        if( GameState.CurrentState == EGameState.PLANNING )
             return true;
 
         return false;
