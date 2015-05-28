@@ -1,8 +1,11 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class FormationReadyButtonUI : MonoBehaviour, MessageReceiver<ClientFormationSetupReady>, MessageReceiver<ClientFormationSetupUnready>
 {
+    private bool hasBeenClicked;
+
     void Awake()
     {
         this.Subscribe<ClientFormationSetupReady>( Messenger.Bus );
@@ -21,8 +24,16 @@ public class FormationReadyButtonUI : MonoBehaviour, MessageReceiver<ClientForma
 
     public void OnButtonClick()
     {
+        if( hasBeenClicked )
+            return;
+
+        hasBeenClicked = true;
+        GetComponent<Button>().interactable = false;
+
         string formation = GameMap.SINGLETON.EncodeFormation();
         Debug.Log(formation);
         GameMap.SINGLETON.DecodeFormation(formation);
+
+        GameState.StartGame();
     }
 }
