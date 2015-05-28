@@ -1,10 +1,8 @@
 ﻿public struct ClientFormationSetupReady
-{
-}
+{ }
 
 public struct ClientFormationSetupUnready
-{
-}
+{ }
 
 public struct FormationReceived
 {
@@ -18,9 +16,13 @@ public struct TurnStateChange
 }
 
 public struct StartGame
-{
-}
+{ }
 
 public struct EndGame
-{
-}
+{ }
+
+public struct NetworkServerInitialized
+{ }
+
+public struct NetworkClientInitialized
+{ }

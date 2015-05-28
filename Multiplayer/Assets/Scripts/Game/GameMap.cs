@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 
-public class GameMap : MonoBehaviour {
+public class GameMap : MonoBehaviour, MessageReceiver<NetworkClientInitialized>, MessageReceiver<NetworkServerInitialized> {
 
     public const int GRID_WIDTH = 10;
     public const int GRID_HEIGHT = 3;
@@ -75,5 +75,15 @@ public class GameMap : MonoBehaviour {
         }
 
         Debug.Log("Complete formation: " + EncodeFormation());
+    }
+
+    public void HandleMessage( NetworkClientInitialized msg )
+    {
+        GameState.Initialize( Side.RED );
+    }
+
+    public void HandleMessage( NetworkServerInitialized msg )
+    {
+        GameState.Initialize( Side.BLUE );
     }
 }

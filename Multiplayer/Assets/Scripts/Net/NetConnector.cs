@@ -74,11 +74,13 @@ public class NetConnector : MonoBehaviour
     void OnServerInitialized()
     {
         Debug.Log("Hosting on " + LocalAddress + ".");
+
+        Messenger.Bus.Route( new NetworkServerInitialized() );
     }
 
 
     /**
-     * {SERVER}
+     * {CLIENT}
      * Player connected to server.
      */
     void OnConnectedToServer()
@@ -87,6 +89,8 @@ public class NetConnector : MonoBehaviour
         Debug.Log("Connected to " + host + ".");
         if (Application.loadedLevel == 0)
             Application.LoadLevel(1);
+
+        Messenger.Bus.Route( new NetworkClientInitialized() );
     }
 
     /**
@@ -102,7 +106,7 @@ public class NetConnector : MonoBehaviour
     }
 
     /**
-     * {CLIENT}
+     * {SERVER}
      * Player connected to server.
      */
     void OnPlayerConnected(NetworkPlayer player)

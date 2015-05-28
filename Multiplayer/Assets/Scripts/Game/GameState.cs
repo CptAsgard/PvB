@@ -16,9 +16,21 @@ public static class GameState
 
     public static bool GameIsPlaying { get; private set; }
 
+    private static bool isInitialized;
+
     static GameState()
     {
         CurrentState = EGameState.PLANNING;
+    }
+
+    public static void Initialize( Side startingSide )
+    {
+        if( isInitialized )
+            return;
+
+        CurrentPlayerTurn = startingSide;
+
+        isInitialized = true;
     }
 
     /**
