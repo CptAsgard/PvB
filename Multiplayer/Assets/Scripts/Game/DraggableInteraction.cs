@@ -38,7 +38,14 @@ public class DraggableInteraction {
         }
         else //Try swapping.
         {
-            Swap( a.GetComponent<Tile>(), b.GetComponent<Tile>() );
+            Tile first, second;
+            first = a.GetComponent<Tile>();
+            second = b.GetComponent<Tile>();
+
+            if( second.Contains && first.Contains.Side != second.Contains.Side )
+                Fight( first, second );
+            else
+                Swap( first, second );
         }
     }
 
@@ -51,6 +58,25 @@ public class DraggableInteraction {
             swapFrom.Contains.SwapWith( swapTo );
 
         Debug.Log( "SWAPPED" );
+    }
+
+    void Fight( Tile fightFrom, Tile fightTo )
+    {
+        if( !fightFrom || !fightTo )
+            return;
+
+        if( ValidMoveCheck.IsValidMove( fightFrom, fightTo ) )
+        {
+            Unit winner = ValidMoveCheck.ResolveFight( fightFrom.Contains, fightTo.Contains );
+
+            if( winner == fightFrom.Contains )
+            {
+                fightTo.Contains.Die();
+            } else
+            {
+                fightFrom.Contains.Die();
+            }
+        }
     }
 
     public void Spawn( UnitPanelUI unitPanel, Tile spawnOn )

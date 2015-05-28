@@ -39,15 +39,15 @@ public class GameMap : MonoBehaviour, MessageReceiver<NetworkClientInitialized>,
         /*var tilesBySide = from tile in Tiles
                           group tile by tile.Side;*/
 
-        var tiles = Tiles.Where( tile => tile.Contains ).ToList<Tile>();
+        var tiles = Tiles.Where( tile => tile.Contains && tile.Contains.Side == side && tile.Position.y == row ).ToList<Tile>();
 
         foreach( Tile tile in tiles )
         {
-            if( tile.Position.y != row )
+            /*if( tile.Position.y != row )
                 continue;
 
             if( tile.Contains.Side != side )
-                continue;
+                continue;*/
 
             GridPosition moveTo;
 

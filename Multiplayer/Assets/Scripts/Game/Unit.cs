@@ -42,4 +42,10 @@ public class Unit : MonoBehaviour {
             temp.transform.position = currentTile.transform.position;
         }
     }
+
+    public void Die()
+    {
+        OnTile.Contains = null;
+        Destroy( gameObject );
+    }
 }
