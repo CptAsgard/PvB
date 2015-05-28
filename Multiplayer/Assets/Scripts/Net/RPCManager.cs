@@ -27,6 +27,7 @@ public class RPCManager : MonoBehaviour {
     public void RPC_Move(Vector3 from, Vector3 to, NetworkMessageInfo info) 
     {
         Debug.Log("Move received. from " + from + " to " + to + ".");
+        DraggableInteraction.SINGLETON.HandleDraggableInteraction(GameMap.SINGLETON.GetTileAt(new GridPosition(from)).GetComponent<Draggable>(), GameMap.SINGLETON.GetTileAt(new GridPosition(to)).GetComponent<Draggable>());
     }
 
     public void SendFormation(string encodedFormation)
