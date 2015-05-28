@@ -31,8 +31,7 @@ public class FormationReadyButtonUI : MonoBehaviour, MessageReceiver<ClientForma
         GetComponent<Button>().interactable = false;
 
         string formation = GameMap.SINGLETON.EncodeFormation();
-        Debug.Log(formation);
-        GameMap.SINGLETON.DecodeFormation(formation);
+        RPCManager.SINGLETON.SendFormation(formation);
 
         GameState.StartGame();
     }

@@ -73,8 +73,6 @@ public class GameMap : MonoBehaviour, MessageReceiver<NetworkClientInitialized>,
                 i++;
             }
         }
-
-        Debug.Log("Complete formation: " + EncodeFormation());
     }
 
     public void HandleMessage( NetworkClientInitialized msg )
