@@ -40,7 +40,7 @@ public class Draggable : MonoBehaviour, IDragHandler, IEndDragHandler
             Draggable draggable = hit.collider.gameObject.GetComponent<Draggable>();
             if (draggable)
             {
-                DraggableInteraction.SINGLETON.HandleDraggableInteraction(this, draggable);
+                DraggableInteraction.SINGLETON.HandleDraggableInteraction(this, draggable, true);
                 if (GameState.CurrentState == EGameState.PLAY)
                 {
                     Tile t = GetComponent<Tile>();

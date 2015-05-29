@@ -28,6 +28,8 @@ public class Unit : MonoBehaviour {
 
     public void SwapWith( Tile tile )
     {
+        Debug.Log( "SWAPPING: " + OnTile.Position + " with " + tile.Position );
+
         Unit temp = tile.Contains;
         Tile currentTile = OnTile;
 

@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class DraggableInteraction {
-    
+public class DraggableInteraction
+{
+
     private static DraggableInteraction _instance;
 
     private DraggableInteraction() { }
@@ -11,22 +12,22 @@ public class DraggableInteraction {
     {
         get
         {
-            if(_instance == null)
+            if( _instance == null )
                 _instance = new DraggableInteraction();
 
             return _instance;
         }
     }
 
-    public void HandleDraggableInteraction(Draggable a, Draggable b)
+    public void HandleDraggableInteraction( Draggable a, Draggable b, bool isLocal )
     {
-        if (!a || !b) //One or more objects are null.
+        if( !a || !b ) //One or more objects are null.
             return;
 
-        if (a.IsUIObject && b.IsUIObject) //Both objects are UI objects.
+        if( a.IsUIObject && b.IsUIObject ) //Both objects are UI objects.
             return;
 
-        if (a.IsUIObject) //Try spawning a unit.
+        if( a.IsUIObject ) //Try spawning a unit.
         {
             var tile = b.GetComponent<Tile>();
             var unit = a.GetComponent<UnitPanelUI>();
@@ -35,17 +36,22 @@ public class DraggableInteraction {
                 return;
 
             Spawn( unit, tile );
-        }
-        else //Try swapping.
+        } else //Try swapping.
         {
             Tile first, second;
             first = a.GetComponent<Tile>();
             second = b.GetComponent<Tile>();
 
-            Debug.Log(first.Contains.Side + ", " + second.Contains.Side);
             if( second.Contains && first.Contains.Side != second.Contains.Side )
-                Fight( first, second );
-            else
+            {
+                if( first.Contains == null )
+                    Debug.Log( "FIRST IS NULL! " + first.Position );
+                else if( second.Contains == null )
+                    Debug.Log( "SECOND IS NULL! " + second.Position );
+
+                Debug.Log( first.Contains.Side + ", " + second.Contains.Side );
+                Fight( first, second, isLocal );
+            } else
                 Swap( first, second );
         }
     }
@@ -61,7 +67,7 @@ public class DraggableInteraction {
         Debug.Log( "SWAPPED" );
     }
 
-    void Fight( Tile fightFrom, Tile fightTo )
+    void Fight( Tile fightFrom, Tile fightTo, bool isLocal )
     {
         if( !fightFrom || !fightTo )
             return;
@@ -73,9 +79,18 @@ public class DraggableInteraction {
             if( winner == fightFrom.Contains )
             {
                 fightTo.Contains.Die();
-            } else
+                if( isLocal ) GameMap.SINGLETON.MoveRowForwards( fightFrom.Position.y, fightFrom.Contains.Side );
+            } else if( winner == fightTo.Contains )
             {
                 fightFrom.Contains.Die();
+                if( isLocal ) GameMap.SINGLETON.MoveRowForwards( fightTo.Position.y, fightTo.Contains.Side );
+            } else
+            {
+                fightTo.Contains.Die();
+                fightFrom.Contains.Die();
+
+                if( isLocal ) GameMap.SINGLETON.MoveRowForwards( fightFrom.Position.y, fightFrom.Contains.Side );
+                if( isLocal ) GameMap.SINGLETON.MoveRowForwards( fightTo.Position.y, fightTo.Contains.Side );
             }
         }
     }
