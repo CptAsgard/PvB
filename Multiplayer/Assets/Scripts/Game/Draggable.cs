@@ -38,8 +38,12 @@ public class Draggable : MonoBehaviour, IDragHandler, IEndDragHandler
         if (Physics.Raycast(ray, out hit, Mathf.Infinity))
         {
             Draggable draggable = hit.collider.gameObject.GetComponent<Draggable>();
+
             if (draggable)
             {
+                if( IsUIObject && draggable.GetComponent<Tile>().Contains )
+                    return;
+
                 DraggableInteraction.SINGLETON.HandleDraggableInteraction(this, draggable, true);
                 if (GameState.CurrentState == EGameState.PLAY)
                 {
