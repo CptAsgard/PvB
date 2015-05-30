@@ -36,18 +36,16 @@ public class GameMap : MonoBehaviour, MessageReceiver<NetworkClientInitialized>,
 
     public void MoveRowForwards( int row, Side side )
     {
-        StartCoroutine( _moveRowForwards( row, side ) );
-    }
-
-    public IEnumerator _moveRowForwards( int row, Side side )
-    {
         var tiles = Tiles.Where( tile => tile.Contains && tile.Contains.Side == side && tile.Position.y == row ).ToList<Tile>();
+
+        if( side == Side.RED )
+            tiles.Reverse();
 
         foreach( Tile tile in tiles )
         {
             GridPosition moveTo;
 
-            if( tile.Contains.Side == Side.RED )
+            if( side == Side.RED )
             {
                 moveTo = new GridPosition( tile.Position.x + 1, tile.Position.y );
             } else
@@ -57,8 +55,6 @@ public class GameMap : MonoBehaviour, MessageReceiver<NetworkClientInitialized>,
 
             tile.Contains.SwapWith( GetTileAt( moveTo ) );
             RPCManager.SINGLETON.SendMove( tile.Position.ToVector3(), moveTo.ToVector3() );
-
-            yield return new WaitForSeconds( 1.0f );
         }
     }
 

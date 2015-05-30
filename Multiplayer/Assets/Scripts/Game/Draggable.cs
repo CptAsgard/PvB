@@ -43,9 +43,9 @@ public class Draggable : MonoBehaviour, IDragHandler, IEndDragHandler
                 DraggableInteraction.SINGLETON.HandleDraggableInteraction(this, draggable, true);
                 if (GameState.CurrentState == EGameState.PLAY)
                 {
-                    Tile t = GetComponent<Tile>();
-                    Tile t2 = draggable.GetComponent<Tile>();
-                    RPCManager.SINGLETON.SendMove(new Vector3(t.Position.x, t.Position.y, 0), new Vector3(t2.Position.x, t2.Position.y, 0));
+                    //Tile t = GetComponent<Tile>();
+                    //Tile t2 = draggable.GetComponent<Tile>();
+                    //RPCManager.SINGLETON.SendMove(new Vector3(t.Position.x, t.Position.y, 0), new Vector3(t2.Position.x, t2.Position.y, 0));
                 }
             }
         }

@@ -19,6 +19,7 @@ public class UnitSpawner : MonoBehaviour {
         unit.OnTile = spawnOn;
         unit.Type = type;
         unit.Side = side;
+        unit.transform.GetChild(0).GetComponent<MeshRenderer>().material.color = ( unit.Side == Side.RED ? Color.red : Color.blue );
 
         spawnOn.Contains = unit;
 

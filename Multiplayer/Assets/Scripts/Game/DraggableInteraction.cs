@@ -50,19 +50,23 @@ public class DraggableInteraction
                     Debug.Log( "SECOND IS NULL! " + second.Position );
 
                 Debug.Log( first.Contains.Side + ", " + second.Contains.Side );
+
                 Fight( first, second, isLocal );
             } else
-                Swap( first, second );
+                Swap( first, second, isLocal );
         }
     }
 
-    void Swap( Tile swapFrom, Tile swapTo )
+    void Swap( Tile swapFrom, Tile swapTo, bool isLocal )
     {
         if( !swapFrom || !swapTo )
             return;
 
         if( ValidMoveCheck.IsValidMove( swapFrom, swapTo ) )
             swapFrom.Contains.SwapWith( swapTo );
+
+        if( isLocal )
+            RPCManager.SINGLETON.SendMove( new Vector3( swapFrom.Position.x, swapFrom.Position.y, 0 ), new Vector3( swapTo.Position.x, swapTo.Position.y, 0 ) );
 
         Debug.Log( "SWAPPED" );
     }
@@ -72,25 +76,38 @@ public class DraggableInteraction
         if( !fightFrom || !fightTo )
             return;
 
-        if( ValidMoveCheck.IsValidMove( fightFrom, fightTo ) )
+        if( ValidMoveCheck.IsValidMove( fightFrom, fightTo ) && ValidMoveCheck.CanFight( fightFrom, fightTo ) )
         {
-            Unit winner = ValidMoveCheck.ResolveFight( fightFrom.Contains, fightTo.Contains );
+            Tile winner = ValidMoveCheck.ResolveFight( fightFrom, fightTo );
 
-            if( winner == fightFrom.Contains )
+            if( winner == fightFrom )
             {
                 fightTo.Contains.Die();
                 if( isLocal ) GameMap.SINGLETON.MoveRowForwards( fightFrom.Position.y, fightFrom.Contains.Side );
-            } else if( winner == fightTo.Contains )
+                else Swap( fightFrom, fightTo, isLocal );
+            } 
+            else if( winner == fightTo )
             {
                 fightFrom.Contains.Die();
                 if( isLocal ) GameMap.SINGLETON.MoveRowForwards( fightTo.Position.y, fightTo.Contains.Side );
-            } else
+                else Swap( fightFrom, fightTo, isLocal );
+            } 
+            else
             {
+                int fightFromY, fightToY;
+                fightFromY = fightFrom.Position.y;
+                fightToY = fightTo.Position.y;
+
+                Side fightFromSide, fightToSide;
+                fightFromSide = fightFrom.Side;
+                fightToSide = fightTo.Side;
+
                 fightTo.Contains.Die();
                 fightFrom.Contains.Die();
-
-                if( isLocal ) GameMap.SINGLETON.MoveRowForwards( fightFrom.Position.y, fightFrom.Contains.Side );
-                if( isLocal ) GameMap.SINGLETON.MoveRowForwards( fightTo.Position.y, fightTo.Contains.Side );
+                if( isLocal ) GameMap.SINGLETON.MoveRowForwards( fightFromY, fightFromSide );
+                if( isLocal ) GameMap.SINGLETON.MoveRowForwards( fightToY, fightToSide );
+                
+                //else Swap( fightFrom, fightTo, isLocal );
             }
         }
     }
