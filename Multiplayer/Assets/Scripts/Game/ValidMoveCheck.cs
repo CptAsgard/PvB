@@ -1,13 +1,70 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+
+public struct UnitTypeObj
+{
+    public UnitType type;
+    public Tile associatedObject;
+}
 
 public static class ValidMoveCheck
 {
-    public static Unit ResolveFight( Unit a, Unit b )
+    private static Dictionary<UnitType, Tile> unitTypeObjDict;
+
+    public static bool CanFight( Tile a, Tile b )
     {
+        // If they're on different rows, don't fight
+        if( a.Position.y != b.Position.y )
+            return false;
 
+        // If the sides are the same, don't fight
+        if( a.Contains.Side == b.Contains.Side )
+            return false;
 
-        return a;
+        return true;
+    }
+
+    /**
+     * Returns the winner of the fight
+     */
+    public static Tile ResolveFight( Tile a, Tile b )
+    {
+        if( unitTypeObjDict == null )
+            unitTypeObjDict = new Dictionary<UnitType, Tile>();
+
+        unitTypeObjDict.Clear();
+
+        unitTypeObjDict.Add( a.Contains.Type, a );
+        
+        if( !unitTypeObjDict.ContainsKey( b.Contains.Type ) )
+            unitTypeObjDict.Add( b.Contains.Type, b );
+
+        // Miner beats bomb
+        if( unitTypeObjDict.ContainsKey( UnitType.BOMB ) && unitTypeObjDict.ContainsKey( UnitType.MINER ) )
+        {
+            return unitTypeObjDict[ UnitType.MINER ];
+        }
+
+        // Bomb kills both
+        if( unitTypeObjDict.ContainsKey( UnitType.BOMB ) )
+        {
+            return null;
+        }
+
+        // Spy kills marshall
+        if( unitTypeObjDict.ContainsKey( UnitType.SPY ) && unitTypeObjDict.ContainsKey( UnitType.MARSHALL ) )
+        {
+            return unitTypeObjDict[ UnitType.SPY ];
+        }
+
+        // Rank based
+        if( (int) a.Contains.Type > (int) b.Contains.Type )
+            return a;
+        else if( (int) a.Contains.Type < (int) b.Contains.Type )
+            return b;
+            
+        return null;
     }
 
     public static bool IsValidMove( Tile a, Tile b )
