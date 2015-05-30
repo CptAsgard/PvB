@@ -28,8 +28,10 @@ public class GenerateMap : MonoBehaviour {
 
             if( i % GameMap.GRID_WIDTH > 4 ) {
                 t.Side = Side.BLUE;
+                t.transform.position = new Vector3( t.transform.position.x + 0.391f, t.transform.position.y, t.transform.position.z );
             } else {
                 t.Side = Side.RED;
+                t.transform.position = new Vector3( t.transform.position.x - 0.391f, t.transform.position.y, t.transform.position.z );
             }
 
             GameMap.SINGLETON.Tiles.Add( t );

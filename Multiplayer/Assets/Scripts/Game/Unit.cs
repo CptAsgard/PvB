@@ -19,12 +19,21 @@ public enum UnitType
     MARSHALL = 7
 }
 
-public class Unit : MonoBehaviour {
+public class Unit : MonoBehaviour, MessageReceiver<StartGame> {
 
     public Tile OnTile;
     
     public Side Side;
     public UnitType Type;
+
+    void Start() {
+        this.Subscribe<StartGame>( Messenger.Bus );
+    }
+
+    void Update() 
+    {
+        transform.position = OnTile.transform.position;
+    }
 
     public void SwapWith( Tile tile )
     {
@@ -55,5 +64,11 @@ public class Unit : MonoBehaviour {
 
         OnTile.Contains = null;
         Destroy( gameObject );
+    }
+
+    public void HandleMessage( StartGame msg ) 
+    {
+        Vector3 moveTo = new Vector3( OnTile.transform.position.x + ( Side == Side.BLUE ? -0.391f : 0.391f ), OnTile.transform.position.y, OnTile.transform.position.z );
+        iTween.MoveTo( OnTile.gameObject, iTween.Hash( "delay", 4, "time", 4, "position", moveTo, "easetype", iTween.EaseType.easeInOutQuad ) );
     }
 }
