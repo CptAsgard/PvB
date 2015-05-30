@@ -11,6 +11,7 @@ public class Draggable : MonoBehaviour, IDragHandler, IEndDragHandler
     public bool ReturnToOrigin; //Object will return to its original position after being dragged.
 
     private Vector3 origin;
+    private Tile tile;
 
     void Awake() {
         IsUIObject = !gameObject.GetComponent<Collider>();
@@ -19,16 +20,25 @@ public class Draggable : MonoBehaviour, IDragHandler, IEndDragHandler
     void Start()
     {
         origin = transform.position;
+
+        if( !IsUIObject)
+            tile = GetComponent<Tile>();
     }
 
     public void OnDrag(PointerEventData eventData)
     {
+        if( tile && tile.Contains && tile.Contains.Side == Side.RED )
+            return;
+
         if(DragPhysically)
             transform.position += new Vector3(eventData.delta.x, eventData.delta.y);
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
+        if( tile && tile.Contains && tile.Contains.Side == Side.RED )
+            return;
+
         if(DragPhysically && ReturnToOrigin)
             transform.position = origin;
 
