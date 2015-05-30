@@ -29,6 +29,7 @@ public class Unit : MonoBehaviour {
     public void SwapWith( Tile tile )
     {
         Debug.Log( "SWAPPING: " + OnTile.Position + " with " + tile.Position );
+        Debug.Log( "FROM TILE CONTAINS: " + (OnTile.Contains != null) + "   TO TILE CONTAINS: " + (tile.Contains != null) );
 
         Unit temp = tile.Contains;
         Tile currentTile = OnTile;
@@ -45,8 +46,13 @@ public class Unit : MonoBehaviour {
         }
     }
 
-    public void Die()
+    public void Die( bool isLocal )
     {
+        if( isLocal )
+            RPCManager.SINGLETON.SendKill( OnTile.Position.ToVector3() );
+
+        Debug.Log( "UNIT DIED" );
+
         OnTile.Contains = null;
         Destroy( gameObject );
     }

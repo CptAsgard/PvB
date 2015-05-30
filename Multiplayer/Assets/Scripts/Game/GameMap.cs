@@ -53,7 +53,13 @@ public class GameMap : MonoBehaviour, MessageReceiver<NetworkClientInitialized>,
                 moveTo = new GridPosition( tile.Position.x - 1, tile.Position.y );
             }
 
-            tile.Contains.SwapWith( GetTileAt( moveTo ) );
+            Tile moveToTile = GetTileAt( moveTo );
+
+            tile.Contains.SwapWith( moveToTile );
+
+            Vector3 tilePos = tile.Position.ToVector3();
+            Vector3 moveToPos = moveTo.ToVector3();
+
             RPCManager.SINGLETON.SendMove( tile.Position.ToVector3(), moveTo.ToVector3() );
         }
     }

@@ -24,6 +24,10 @@ public class RPCManager : MonoBehaviour
         Network.RPC( "RPC_Move", RPCMode.Others, new GridPosition( 9 - (int) from.x, (int) from.y ).ToVector3(), new GridPosition( 9 - (int) to.x, (int) to.y ).ToVector3() );
     }
 
+    public void SendKill( Vector3 pos ) {
+        Network.RPC( "RPC_Kill", RPCMode.Others, new GridPosition( 9 - (int) pos.x, (int) pos.y ).ToVector3() );
+    }
+
     [RPC]
     public void RPC_Move( Vector3 from, Vector3 to, NetworkMessageInfo info )
     {
@@ -32,6 +36,11 @@ public class RPCManager : MonoBehaviour
             GameMap.SINGLETON.GetTileAt( new GridPosition( from ) ).GetComponent<Draggable>(),
             GameMap.SINGLETON.GetTileAt( new GridPosition( to ) ).GetComponent<Draggable>(),
             false );
+    }
+
+    [RPC]
+    public void RPC_Kill( Vector3 pos, NetworkMessageInfo info ) {
+        GameMap.SINGLETON.GetTileAt( new GridPosition( pos ) ).Contains.Die( false );
     }
 
     public void SendFormation( string encodedFormation )

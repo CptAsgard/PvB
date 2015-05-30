@@ -62,13 +62,15 @@ public class DraggableInteraction
         if( !swapFrom || !swapTo )
             return;
 
-        if( ValidMoveCheck.IsValidMove( swapFrom, swapTo ) )
+        if( isLocal && ValidMoveCheck.IsValidMove( swapFrom, swapTo ) )
+            swapFrom.Contains.SwapWith( swapTo );
+        else
             swapFrom.Contains.SwapWith( swapTo );
 
         if( isLocal )
             RPCManager.SINGLETON.SendMove( new Vector3( swapFrom.Position.x, swapFrom.Position.y, 0 ), new Vector3( swapTo.Position.x, swapTo.Position.y, 0 ) );
 
-        Debug.Log( "SWAPPED" );
+        Debug.Log( "isLocal: " + isLocal + "  SWAPPED" );
     }
 
     void Fight( Tile fightFrom, Tile fightTo, bool isLocal )
@@ -82,18 +84,26 @@ public class DraggableInteraction
 
             if( winner == fightFrom )
             {
-                fightTo.Contains.Die();
+                Debug.Log( "isLocal: " + isLocal + "fightFrom wins!" );
+
+                fightTo.Contains.Die( isLocal );
                 if( isLocal ) GameMap.SINGLETON.MoveRowForwards( fightFrom.Position.y, fightFrom.Contains.Side );
                 else Swap( fightFrom, fightTo, isLocal );
             } 
             else if( winner == fightTo )
             {
-                fightFrom.Contains.Die();
+                Debug.Log( "isLocal: " + isLocal + "fightTo wins!" );
+
+                fightFrom.Contains.Die( isLocal );
                 if( isLocal ) GameMap.SINGLETON.MoveRowForwards( fightTo.Position.y, fightTo.Contains.Side );
                 else Swap( fightFrom, fightTo, isLocal );
             } 
             else
             {
+                Debug.Log( "Nobody wins! " );
+
+                //if( isLocal ) RPCManager.SINGLETON.SendMove( new Vector3( fightFrom.Position.x, fightFrom.Position.y, 0 ), new Vector3( fightTo.Position.x, fightTo.Position.y, 0 ) );
+
                 int fightFromY, fightToY;
                 fightFromY = fightFrom.Position.y;
                 fightToY = fightTo.Position.y;
@@ -102,12 +112,11 @@ public class DraggableInteraction
                 fightFromSide = fightFrom.Side;
                 fightToSide = fightTo.Side;
 
-                fightTo.Contains.Die();
-                fightFrom.Contains.Die();
+                fightTo.Contains.Die( isLocal );
+                fightFrom.Contains.Die( isLocal );
+
                 if( isLocal ) GameMap.SINGLETON.MoveRowForwards( fightFromY, fightFromSide );
-                if( isLocal ) GameMap.SINGLETON.MoveRowForwards( fightToY, fightToSide );
-                
-                //else Swap( fightFrom, fightTo, isLocal );
+                if( isLocal ) GameMap.SINGLETON.MoveRowForwards( fightToY, (fightFromSide == Side.RED ? Side.BLUE : Side.RED) );
             }
         }
     }
