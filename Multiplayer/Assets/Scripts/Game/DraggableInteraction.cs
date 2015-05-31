@@ -62,18 +62,14 @@ public class DraggableInteraction
         if( !swapFrom || !swapTo )
             return;
 
-        if( isLocal && ValidMoveCheck.IsValidMove( swapFrom, swapTo ) )
-            swapFrom.Contains.SwapWith( swapTo );
-        else
+        if( !isLocal || ( isLocal && ValidMoveCheck.IsValidMove( swapFrom, swapTo ) ) ) {
             swapFrom.Contains.SwapWith( swapTo );
 
-        if( isLocal )
-            RPCManager.SINGLETON.SendMove( new Vector3( swapFrom.Position.x, swapFrom.Position.y, 0 ), new Vector3( swapTo.Position.x, swapTo.Position.y, 0 ) );
+            if( isLocal )
+                RPCManager.SINGLETON.SendMove( new Vector3( swapFrom.Position.x, swapFrom.Position.y, 0 ), new Vector3( swapTo.Position.x, swapTo.Position.y, 0 ) );
 
-        if( !isLocal && GameState.CurrentState == EGameState.PLAY && GameState.CurrentPlayerTurn == Side.RED )
-            GameState.NextPlayerTurn();
-
-        Debug.Log( "isLocal: " + isLocal + "  SWAPPED" );
+            Debug.Log( "isLocal: " + isLocal + "  SWAPPED" );
+        }
     }
 
     void Fight( Tile fightFrom, Tile fightTo, bool isLocal )
@@ -121,9 +117,6 @@ public class DraggableInteraction
                 if( isLocal ) GameMap.SINGLETON.MoveRowForwards( fightFromY, fightFromSide );
                 if( isLocal ) GameMap.SINGLETON.MoveRowForwards( fightToY, (fightFromSide == Side.RED ? Side.BLUE : Side.RED) );
             }
-
-            if( GameState.CurrentState == EGameState.PLAY )
-                GameState.NextPlayerTurn();
         }
     }
 

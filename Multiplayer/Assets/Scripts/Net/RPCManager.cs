@@ -22,10 +22,16 @@ public class RPCManager : MonoBehaviour
     public void SendMove( Vector3 from, Vector3 to )
     {
         Network.RPC( "RPC_Move", RPCMode.Others, new GridPosition( 9 - (int) from.x, (int) from.y ).ToVector3(), new GridPosition( 9 - (int) to.x, (int) to.y ).ToVector3() );
+
+        if( GameState.CurrentState == EGameState.PLAY && GameState.CurrentPlayerTurn == Side.BLUE )
+            GameState.NextPlayerTurn();
     }
 
     public void SendKill( Vector3 pos ) {
         Network.RPC( "RPC_Kill", RPCMode.Others, new GridPosition( 9 - (int) pos.x, (int) pos.y ).ToVector3() );
+
+        if( GameState.CurrentState == EGameState.PLAY && GameState.CurrentPlayerTurn == Side.BLUE )
+            GameState.NextPlayerTurn();
     }
 
     [RPC]
@@ -36,11 +42,17 @@ public class RPCManager : MonoBehaviour
             GameMap.SINGLETON.GetTileAt( new GridPosition( from ) ).GetComponent<Draggable>(),
             GameMap.SINGLETON.GetTileAt( new GridPosition( to ) ).GetComponent<Draggable>(),
             false );
+
+        if( GameState.CurrentState == EGameState.PLAY && GameState.CurrentPlayerTurn == Side.RED )
+            GameState.NextPlayerTurn();
     }
 
     [RPC]
     public void RPC_Kill( Vector3 pos, NetworkMessageInfo info ) {
         GameMap.SINGLETON.GetTileAt( new GridPosition( pos ) ).Contains.Die( false );
+
+        if( GameState.CurrentState == EGameState.PLAY && GameState.CurrentPlayerTurn == Side.RED )
+            GameState.NextPlayerTurn();
     }
 
     public void SendFormation( string encodedFormation )
