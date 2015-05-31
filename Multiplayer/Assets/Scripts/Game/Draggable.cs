@@ -39,8 +39,14 @@ public class Draggable : MonoBehaviour, IDragHandler, IEndDragHandler
         if( tile && tile.Contains && tile.Contains.Side == Side.RED )
             return;
 
+        if( GameState.CurrentState == EGameState.END )
+            return;
+
         if(DragPhysically && ReturnToOrigin)
             transform.position = origin;
+
+        if( GameState.CurrentState == EGameState.PLAY && GameState.CurrentPlayerTurn == Side.RED )
+            return;
 
         RaycastHit hit;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);

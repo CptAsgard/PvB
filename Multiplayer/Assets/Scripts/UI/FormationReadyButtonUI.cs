@@ -56,5 +56,7 @@ public class FormationReadyButtonUI : MonoBehaviour, MessageReceiver<ClientForma
         }
 
         GameState.StartGame();
+
+        iTween.MoveTo( gameObject, gameObject.transform.position + new Vector3( 0, 100, 0 ), 2 );
     }
 }
