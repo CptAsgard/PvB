@@ -65,7 +65,7 @@ public class DraggableInteraction
         if( !isLocal || ( isLocal && ValidMoveCheck.IsValidMove( swapFrom, swapTo ) ) ) {
             swapFrom.Contains.SwapWith( swapTo );
 
-            if( isLocal )
+            if( isLocal && GameState.CurrentState == EGameState.PLAY)
                 RPCManager.SINGLETON.SendMove( new Vector3( swapFrom.Position.x, swapFrom.Position.y, 0 ), new Vector3( swapTo.Position.x, swapTo.Position.y, 0 ) );
 
             Debug.Log( "isLocal: " + isLocal + "  SWAPPED" );
