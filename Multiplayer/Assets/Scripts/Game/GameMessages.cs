@@ -18,6 +18,10 @@ public struct TurnStateChange
 public struct StartGame
 { }
 
+public struct FadeInTiles
+{
+}
+
 public struct EndGame
 {
     public Side winner;

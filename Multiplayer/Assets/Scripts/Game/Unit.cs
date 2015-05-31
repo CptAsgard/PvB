@@ -69,6 +69,6 @@ public class Unit : MonoBehaviour, MessageReceiver<StartGame> {
     public void HandleMessage( StartGame msg ) 
     {
         Vector3 moveTo = new Vector3( OnTile.transform.position.x + ( Side == Side.BLUE ? -0.391f : 0.391f ), OnTile.transform.position.y, OnTile.transform.position.z );
-        iTween.MoveTo( OnTile.gameObject, iTween.Hash( "delay", 2.5f, "time", 4, "position", moveTo, "easetype", iTween.EaseType.easeInOutQuad ) );
+        iTween.MoveTo( OnTile.gameObject, iTween.Hash( "delay", 4f, "time", 4, "position", moveTo, "easetype", iTween.EaseType.easeInOutQuad ) );
     }
 }
