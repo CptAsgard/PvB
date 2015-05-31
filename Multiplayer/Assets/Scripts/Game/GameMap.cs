@@ -5,7 +5,7 @@ using System;
 
 using System.Linq;
 
-public class GameMap : MonoBehaviour, MessageReceiver<NetworkClientInitialized>, MessageReceiver<NetworkServerInitialized>
+public class GameMap : MonoBehaviour, MessageReceiver<NetworkClientInitialized>, MessageReceiver<NetworkServerInitialized>, MessageReceiver<TurnStateChange>
 {
 
     public const int GRID_WIDTH = 10;
@@ -21,6 +21,12 @@ public class GameMap : MonoBehaviour, MessageReceiver<NetworkClientInitialized>,
 
         if( Tiles == null )
             Tiles = new List<Tile>( 0 );
+
+        this.Subscribe<TurnStateChange>( Messenger.Bus );
+    }
+
+    public void HandleMessage( TurnStateChange msg ) {
+        Debug.Log( "Next player's turn: Side." + msg.Side.ToString() );
     }
 
     public Tile GetTileAt( GridPosition pos )

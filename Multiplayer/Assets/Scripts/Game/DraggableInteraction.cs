@@ -70,6 +70,9 @@ public class DraggableInteraction
         if( isLocal )
             RPCManager.SINGLETON.SendMove( new Vector3( swapFrom.Position.x, swapFrom.Position.y, 0 ), new Vector3( swapTo.Position.x, swapTo.Position.y, 0 ) );
 
+        if( !isLocal && GameState.CurrentState == EGameState.PLAY && GameState.CurrentPlayerTurn == Side.RED )
+            GameState.NextPlayerTurn();
+
         Debug.Log( "isLocal: " + isLocal + "  SWAPPED" );
     }
 
@@ -118,6 +121,9 @@ public class DraggableInteraction
                 if( isLocal ) GameMap.SINGLETON.MoveRowForwards( fightFromY, fightFromSide );
                 if( isLocal ) GameMap.SINGLETON.MoveRowForwards( fightToY, (fightFromSide == Side.RED ? Side.BLUE : Side.RED) );
             }
+
+            if( GameState.CurrentState == EGameState.PLAY )
+                GameState.NextPlayerTurn();
         }
     }
 

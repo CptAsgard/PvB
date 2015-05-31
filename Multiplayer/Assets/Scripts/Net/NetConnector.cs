@@ -74,7 +74,7 @@ public class NetConnector : MonoBehaviour
     void OnServerInitialized()
     {
         Debug.Log("Hosting on " + LocalAddress + ".");
-
+        GameState.Initialize( Side.BLUE );
         Messenger.Bus.Route( new NetworkServerInitialized() );
     }
 
@@ -91,6 +91,7 @@ public class NetConnector : MonoBehaviour
             Application.LoadLevel(1);
 
         Messenger.Bus.Route( new NetworkClientInitialized() );
+        GameState.Initialize( Side.RED );
     }
 
     /**
