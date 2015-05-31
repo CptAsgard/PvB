@@ -19,7 +19,9 @@ public struct StartGame
 { }
 
 public struct EndGame
-{ }
+{
+    public Side winner;
+}
 
 public struct NetworkServerInitialized
 { }

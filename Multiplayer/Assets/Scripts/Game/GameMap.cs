@@ -15,6 +15,8 @@ public class GameMap : MonoBehaviour, MessageReceiver<NetworkClientInitialized>,
 
     public static GameMap SINGLETON;
 
+    private Side? winnerSide;
+
     void Awake()
     {
         SINGLETON = this;
@@ -23,6 +25,14 @@ public class GameMap : MonoBehaviour, MessageReceiver<NetworkClientInitialized>,
             Tiles = new List<Tile>( 0 );
 
         this.Subscribe<TurnStateChange>( Messenger.Bus );
+    }
+
+    void Update() {
+        if( GameState.CurrentState == EGameState.PLAY && (winnerSide = CheckEndGame()) != null ) 
+        {
+            Messenger.Bus.Route( new EndGame() { winner = winnerSide.Value } );
+            GameState.EndGame();
+        }
     }
 
     public void HandleMessage( TurnStateChange msg ) {
@@ -68,6 +78,31 @@ public class GameMap : MonoBehaviour, MessageReceiver<NetworkClientInitialized>,
 
             RPCManager.SINGLETON.SendMove( tile.Position.ToVector3(), moveTo.ToVector3() );
         }
+    }
+
+    public Side? CheckEndGame() 
+    {
+        for( int i = 0; i < 3; i++ ) {
+            bool foundBlue = false;
+            bool foundRed = false;
+
+            var tiles = Tiles.Where( tile => tile.Contains && tile.Position.y == i ).ToList<Tile>();
+
+            foreach( Tile t in tiles ) {
+                if( t.Side == Side.BLUE )
+                    foundBlue = true;
+                else
+                    foundRed = true;
+            }
+
+            if( !foundBlue )
+                return Side.RED;
+
+            if( !foundRed )
+                return Side.BLUE;
+        }
+
+        return null;
     }
 
     public void ClearTiles()

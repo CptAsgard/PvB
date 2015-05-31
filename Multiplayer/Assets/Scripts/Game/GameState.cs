@@ -71,7 +71,5 @@ public static class GameState
 
         GameIsPlaying = false;
         CurrentState = EGameState.END;
-
-        Messenger.Bus.Route( new EndGame() );
     }
 }
