@@ -63,6 +63,12 @@ public class DraggableInteraction
             return;
 
         if( !isLocal || ( isLocal && ValidMoveCheck.IsValidMove( swapFrom, swapTo ) ) ) {
+            if( swapFrom.Contains )
+                iTween.MoveTo( swapFrom.Contains.gameObject, iTween.Hash( "position", swapTo.transform.position, "time", 1, "easetype", iTween.EaseType.easeInOutSine ) );
+
+            if( swapTo.Contains )
+                iTween.MoveTo( swapTo.Contains.gameObject, iTween.Hash( "position", swapFrom.transform.position, "time", 1, "easetype", iTween.EaseType.easeInOutSine ) );
+            
             swapFrom.Contains.SwapWith( swapTo );
 
             if( isLocal && GameState.CurrentState == EGameState.PLAY)

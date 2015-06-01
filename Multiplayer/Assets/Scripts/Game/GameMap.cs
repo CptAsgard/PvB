@@ -71,6 +71,8 @@ public class GameMap : MonoBehaviour, MessageReceiver<NetworkClientInitialized>,
 
             Tile moveToTile = GetTileAt( moveTo );
 
+            iTween.MoveTo( tile.Contains.gameObject, iTween.Hash( "position", moveToTile.transform.position, "time", 1, "easetype", iTween.EaseType.easeInOutSine ) );
+
             tile.Contains.SwapWith( moveToTile );
 
             Vector3 tilePos = tile.Position.ToVector3();

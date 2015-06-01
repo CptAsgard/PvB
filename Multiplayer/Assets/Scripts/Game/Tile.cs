@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Tile : MonoBehaviour {
+public class Tile : MonoBehaviour, MessageReceiver<StartGame>
+{
 
     private Side __side;
     public Side Side {
@@ -47,6 +48,11 @@ public class Tile : MonoBehaviour {
     [SerializeField]
     private Material RedMaterial;
 
+    void Start()
+    {
+        this.Subscribe<StartGame>( Messenger.Bus );
+    }
+
     private void SetWorldPosition() {
         gameObject.transform.position = new Vector3( (Position.x * 0.07f) - 0.025f, 0, (Position.y * 0.0755f) + 1.0245f );
     }
@@ -61,5 +67,11 @@ public class Tile : MonoBehaviour {
                 gameObject.GetComponentInChildren<Renderer>().material = RedMaterial;
                 break;
         }
+    }
+
+    public void HandleMessage( StartGame msg )
+    {
+        Vector3 moveTo = new Vector3( transform.position.x + ( Side == Side.BLUE ? -0.391f : 0.391f ), transform.position.y, transform.position.z );
+        iTween.MoveTo( gameObject, iTween.Hash( "delay", 4f, "time", 4, "position", moveTo, "easetype", iTween.EaseType.easeInOutQuad ) );
     }
 }

@@ -17,6 +17,7 @@ public class GenerateMap : MonoBehaviour {
 
     IEnumerator GenMap() {
         GameObject root = new GameObject("- Tiles");
+        root.AddComponent<UnitRootMover>();
 
         GameMap.SINGLETON.ClearTiles();
 

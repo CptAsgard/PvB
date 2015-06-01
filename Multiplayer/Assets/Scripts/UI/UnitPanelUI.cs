@@ -6,6 +6,8 @@ using System.Collections;
 public class UnitPanelUI : MonoBehaviour
 {
     public UnitType Type;
+
+    private Text text;
     
     [SerializeField]
     private int __amountSpawnable;
@@ -23,6 +25,12 @@ public class UnitPanelUI : MonoBehaviour
             if( __amountSpawnable <= 0 )
                 DisablePanel();
         }
+    }
+
+    void Start()
+    {
+        text = transform.GetChild( 0 ).GetComponent<Text>();
+        text.text = ( (int) Type ).ToString();
     }
 
     void DisablePanel()
