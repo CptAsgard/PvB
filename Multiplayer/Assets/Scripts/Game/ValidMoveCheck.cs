@@ -88,28 +88,28 @@ public static class ValidMoveCheck
         if( Mathf.Abs(( a.Position.x - b.Position.x ) + ( a.Position.y - b.Position.y )) > 1 )
             return false;
 
-        GridPosition getAt;
-
         // If the first tile doesn't have a unit on it, there's nothing to move
         if( a.Contains == null )
             return false;
 
-        int x, y;
-        x = y = 0;
+        //int x, y;
+        //x = y = 0;
 
-        // We'd like to test if we can move this unit behind our others
-        if( a.Contains.Side == Side.BLUE && ( b.Contains && b.Contains.Side == Side.BLUE ) )
-            x = b.Position.x - 1;
-        else
-            x = b.Position.x + 1;
+        //GridPosition getAt;
 
-        getAt = new GridPosition( x, y );
+        //// We'd like to test if we can move this unit behind our others
+        //if( a.Contains.Side == Side.BLUE && ( b.Contains && b.Contains.Side == Side.BLUE ) )
+        //    x = b.Position.x - 1;
+        //else
+        //    x = b.Position.x + 1;
 
-        Tile targetTile = GameMap.SINGLETON.GetTileAt( getAt );
+        //getAt = new GridPosition( x, y );
 
-        // If we can't move directly behind our other units, it's not a valid move
-        if( targetTile.Contains == null )
-            return false;
+        //Tile targetTile = GameMap.SINGLETON.GetTileAt( getAt );
+
+        //// If we can't move directly behind our other units, it's not a valid move
+        //if( targetTile.Contains == null )
+        //    return false;
 
         // We can move behind one of our units, or swap with one of our units. Valid move!
         return true;
