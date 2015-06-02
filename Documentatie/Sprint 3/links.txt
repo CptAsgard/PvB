@@ -1,0 +1,10 @@
+- Link naar online speelbare game (dropbox download)   	http://frankvanwattingen.com/Build.rar
+- Usertest footage (youtube) 				https://www.youtube.com/watch?v=X1jtMzMjT-U
+- Actief ingezet bugsysteem (github)			https://github.com/CptAsgard/PvB/issues?q=is%3Aissue+is%3Aclosed
+- Link naar broncode (github)				https://github.com/CptAsgard/PvB				
+- Gedocumenteerde code (link)				http://cptasgard.github.io/html/
+
+- Contactverslagen (pdf)				Moet nog de folder in!
+- Course of action sheet				Moet nog van doc naar pdf geconvert
+- Bijgewerkt technisch en functioneel ontwerp (pdf)	DONE, staat in folder
+- Testscenario's (pdf) 					DONE, staat in folder
