@@ -19,6 +19,9 @@ public enum UnitType
     MARSHALL = 7
 }
 
+/**
+ * Unit component to handle swapping and death + network replication
+ */
 public class Unit : MonoBehaviour {
 
     public Tile OnTile;
@@ -26,6 +29,10 @@ public class Unit : MonoBehaviour {
     public Side Side;
     public UnitType Type;
 
+    /**
+     * Move this unit to the specified tile. Move the unit on that specified tile to this position.
+     * @param tile The tile to move to
+     */
     public void SwapWith( Tile tile )
     {
         Debug.Log( "SWAPPING: " + OnTile.Position + " with " + tile.Position );
@@ -46,6 +53,10 @@ public class Unit : MonoBehaviour {
         }
     }
 
+    /**
+     * Kill this unit
+     * @param isLocal If this function is called locally or through RPC
+     */
     public void Die( bool isLocal )
     {
         if( isLocal )

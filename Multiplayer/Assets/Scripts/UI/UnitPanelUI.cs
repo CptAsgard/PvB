@@ -3,6 +3,9 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System.Collections;
 
+/**
+ * Shows the rank and amount left of units to spawn
+ */
 public class UnitPanelUI : MonoBehaviour
 {
     public UnitType Type;

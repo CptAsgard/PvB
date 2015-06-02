@@ -10,21 +10,38 @@ public sealed class GridPosition {
 
     public int x, y;
 
+    /**
+     * CONSTRUCTOR: Sets the grid position to the specified X and Y
+     * @param x The x position
+     * @param y The y position
+     */
     public GridPosition( int x, int y ) {
         this.x = x;
         this.y = y;
     }
 
+    /**
+     * CONSTRUCTOR: Takes the X and Y of a Vector3 and sets the grid position to it
+     * @param pos The vector3 to take the X and Y from
+     */
     public GridPosition( Vector3 pos ) {
         this.x = (int) pos.x;
         this.y = (int) pos.y;
     }
 
+    /**
+     * CONSTRUCTOR: Constructs a GridPosition from the X and Y components of a Vector2. Casts to int!
+     * @param pos Vector2 pos to initialize the grid to.
+     */
     public GridPosition( Vector2 pos ) {
         this.x = (int) pos.x;
         this.y = (int) pos.y;
     }
 
+    /**
+     * Returns the GridPosition as a vector formatted Vector3(x, y, 0)
+     * @returns The Vector3 formatted Vector3(x, y, 0)
+     */
     public Vector3 ToVector3() {
         return new Vector3( x, y, 0 );
     }

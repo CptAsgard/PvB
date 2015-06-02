@@ -2,6 +2,9 @@
 using UnityEngine.UI;
 using System.Collections;
 
+/**
+ * Button to press if the formation is ready and the player wants to start
+ */
 public class FormationReadyButtonUI : MonoBehaviour, MessageReceiver<ClientFormationSetupReady>, MessageReceiver<ClientFormationSetupUnready>
 {
     private bool hasBeenClicked;

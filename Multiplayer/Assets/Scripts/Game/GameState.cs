@@ -8,6 +8,9 @@ public enum EGameState
     END
 }
 
+/**
+ * Static tracker of the state of the game
+ */
 public static class GameState
 {
     public static EGameState CurrentState { get; private set; }
@@ -16,11 +19,18 @@ public static class GameState
 
     public static bool GameIsPlaying { get; private set; }
 
+    /**
+     * Constructor, sets the gamestate to PLANNING
+     */
     static GameState()
     {
         CurrentState = EGameState.PLANNING;
     }
 
+    /**
+     * Initialize the game state
+     * @param startingSide Set the side that is allowed to make the first move
+     */
     public static void Initialize( Side startingSide )
     {
         CurrentPlayerTurn = startingSide;

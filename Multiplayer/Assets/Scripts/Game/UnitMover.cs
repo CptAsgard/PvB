@@ -1,6 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/**
+ * Move the unit to a position
+ * DEPRECATED!
+ */
 [RequireComponent(typeof(Unit))]
 public class UnitMover : MonoBehaviour {
 

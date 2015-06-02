@@ -1,9 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class AnimEvents : MonoBehaviour {
-
-    public void StartTileFadeIn() {
+/**
+ * Generic class for animation events
+ */
+public class AnimEvents : MonoBehaviour
+{
+    /**
+     * Fade in the game tiles on the bridge
+     */
+    public void StartTileFadeIn()
+    {
         Messenger.Bus.Route( new FadeInTiles() );
     }
 }

@@ -1,6 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/**
+ * Moves the root of the units to the correct position to 
+ * simulate the units moving over the bridge.
+ */
 public class UnitRootMover : MonoBehaviour, MessageReceiver<StartGame>
 {
     void Start() {

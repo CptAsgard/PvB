@@ -2,6 +2,9 @@
 using UnityEngine.UI;
 using System.Collections;
 
+/**
+ * Handles spawning of units on the game board
+ */
 public class UnitSpawner : MonoBehaviour {
 
     public GameObject UnitPrefabTEMP;
@@ -11,6 +14,12 @@ public class UnitSpawner : MonoBehaviour {
     private Tile SpawnOnTile;
     private UnitType Type;
 
+    /**
+     * Spawn the unit and remove this spawner
+     * @param spawnOn The tile to spawn the unit on
+     * @param type The type (rank) of the unit
+     * @param side The side of the unit (RED or BLUE)
+     */
     public void Init( Tile spawnOn, UnitType type, Side side )
     {
         string findString = "- Units" + ( side == Side.BLUE ? "BLUE" : "RED" );

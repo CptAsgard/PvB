@@ -2,6 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 
+/**
+ * Fades the tiles either in or out based on FadeInTiles message
+ */
 public class TileFader : MonoBehaviour, MessageReceiver<FadeInTiles>
 {
     public bool FadeOutInstead;

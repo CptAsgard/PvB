@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/**
+ * Tile component to set color and move units
+ */
 public class Tile : MonoBehaviour, MessageReceiver<StartGame>
 {
-
     private Side __side;
     public Side Side {
         get {

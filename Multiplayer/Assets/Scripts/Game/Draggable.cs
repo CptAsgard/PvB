@@ -3,6 +3,10 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System.Collections;
 
+/**
+ * Attach to a gameObject that needs to be draggable
+ * For example the Tile and UnitPanelUI
+ */
 public class Draggable : MonoBehaviour, IDragHandler, IEndDragHandler
 {
     [HideInInspector]
@@ -36,37 +40,36 @@ public class Draggable : MonoBehaviour, IDragHandler, IEndDragHandler
 
     public void OnEndDrag(PointerEventData eventData)
     {
+        // Don't allow dragging of enemy units
         if( tile && tile.Contains && tile.Contains.Side == Side.RED )
             return;
 
+        // Don't allow dragging if the game has ended
         if( GameState.CurrentState == EGameState.END )
             return;
 
         if(DragPhysically && ReturnToOrigin)
             transform.position = origin;
 
+        // Don't allow dragging if it's not your turn
         if( GameState.CurrentState == EGameState.PLAY && GameState.CurrentPlayerTurn == Side.RED )
             return;
 
         RaycastHit hit;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
- 
+        
+        // Check which tile is under the mouse
         if (Physics.Raycast(ray, out hit, Mathf.Infinity))
         {
             Draggable draggable = hit.collider.gameObject.GetComponent<Draggable>();
 
             if (draggable)
             {
+                // If we're trying to drag an UI spawner onto a tile that contains a unit, don't spwan
                 if( IsUIObject && draggable.GetComponent<Tile>().Contains )
                     return;
 
                 DraggableInteraction.SINGLETON.HandleDraggableInteraction(this, draggable, true);
-                if (GameState.CurrentState == EGameState.PLAY)
-                {
-                    //Tile t = GetComponent<Tile>();
-                    //Tile t2 = draggable.GetComponent<Tile>();
-                    //RPCManager.SINGLETON.SendMove(new Vector3(t.Position.x, t.Position.y, 0), new Vector3(t2.Position.x, t2.Position.y, 0));
-                }
             }
         }
     }

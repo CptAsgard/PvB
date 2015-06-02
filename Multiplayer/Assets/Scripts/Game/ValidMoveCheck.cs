@@ -2,16 +2,28 @@
 using System.Collections;
 using System.Collections.Generic;
 
+/**
+ * Helper object to make rule checking easier
+ */
 public struct UnitTypeObj
 {
     public UnitType type;
     public Tile associatedObject;
 }
 
+/**
+ * Checks if the moves specified are allowed according to game rules
+ */
 public static class ValidMoveCheck
 {
     private static Dictionary<UnitType, Tile> unitTypeObjDict;
 
+    /**
+     * Is a fight between the two specified units allowed?
+     * @param a The first tile
+     * @param b The second tile
+     * @returns True if the fight is allowed, false if it isn't
+     */
     public static bool CanFight( Tile a, Tile b )
     {
         // If they're on different rows, don't fight
@@ -26,7 +38,10 @@ public static class ValidMoveCheck
     }
 
     /**
-     * Returns the winner of the fight
+     * Returns the winner of the fight. Make sure to call CanFight() before this!
+     * @param a The first tile
+     * @param b The second tile
+     * @returns The tile that won the fight, null if both should die
      */
     public static Tile ResolveFight( Tile a, Tile b )
     {
@@ -67,6 +82,12 @@ public static class ValidMoveCheck
         return null;
     }
 
+    /**
+     * If the move to the other tile is allowed
+     * @param a The first tile
+     * @param b The second tile
+     * @returns True if the move is allowed, false if it isn't
+     */
     public static bool IsValidMove( Tile a, Tile b )
     {
         if( a.Contains == null && b.Contains == null )
@@ -80,6 +101,12 @@ public static class ValidMoveCheck
             return false;
     }
 
+    /**
+     * If the move to the other tile is allowed. Uses rules applicable to the PLAY state.
+     * @param a The first tile
+     * @param b The second tile
+     * @returns True if the move is allowed, false if it isn't
+     */
     private static bool IsValidMove_PlayState( Tile a, Tile b )
     {
         // If the distance between the two tiles is greater than 1, it's not a valid move
@@ -150,6 +177,12 @@ public static class ValidMoveCheck
         return true;
     }
 
+    /**
+     * If the move to the other tile is allowed. Uses rules applicable to the PLANNING state.
+     * @param a The first tile
+     * @param b The second tile
+     * @returns True if the move is allowed, false if it isn't
+     */
     private static bool IsValidMove_PlanningState( Tile a, Tile b )
     {
         return true;

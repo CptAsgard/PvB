@@ -2,7 +2,11 @@
 using UnityEngine.UI;
 using System.Collections;
 
-public class MainMenuUI : MonoBehaviour {
+/**
+ * Simple class to facilitate connecting and hosting games in the main menu
+ */
+public class MainMenuUI : MonoBehaviour
+{
     public static MainMenuUI SINGLETON;
 
     public InputField Host;
@@ -20,10 +24,10 @@ public class MainMenuUI : MonoBehaviour {
 
     public void Connect()
     {
-        NetConnector.SINGLETON.Connect(Host.text);
+        NetConnector.SINGLETON.Connect( Host.text );
     }
 
-    public void ShowLocalAddress(string localAddress)
+    public void ShowLocalAddress( string localAddress )
     {
         LocalAddress.text = localAddress;
     }

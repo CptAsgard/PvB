@@ -1,9 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/**
+ * Handles the interaction between two draggables.
+ * Could mean a spawn, swap, or fight.
+ */
 public class DraggableInteraction
 {
-
     private static DraggableInteraction _instance;
 
     private DraggableInteraction() { }
@@ -42,21 +45,21 @@ public class DraggableInteraction
             first = a.GetComponent<Tile>();
             second = b.GetComponent<Tile>();
 
+            // If you're dragging a unit onto a unit of a different side
             if( second.Contains && first.Contains.Side != second.Contains.Side )
             {
-                if( first.Contains == null )
-                    Debug.Log( "FIRST IS NULL! " + first.Position );
-                else if( second.Contains == null )
-                    Debug.Log( "SECOND IS NULL! " + second.Position );
-
-                Debug.Log( first.Contains.Side + ", " + second.Contains.Side );
-
                 Fight( first, second, isLocal );
             } else
                 Swap( first, second, isLocal );
         }
     }
 
+    /**
+     * Handles swap interaction and network replication between two draggables
+     * @param swapFrom Which tile to swap from
+     * @param swapTo Which tile to swap to
+     * @param isLocal True if called locally, false if called by RPC.
+     */
     void Swap( Tile swapFrom, Tile swapTo, bool isLocal )
     {
         if( !swapFrom || !swapTo )
@@ -71,6 +74,7 @@ public class DraggableInteraction
             
             swapFrom.Contains.SwapWith( swapTo );
 
+            // Replicate behaviour to other person if it's a local call
             if( isLocal && GameState.CurrentState == EGameState.PLAY)
                 RPCManager.SINGLETON.SendMove( new Vector3( swapFrom.Position.x, swapFrom.Position.y, 0 ), new Vector3( swapTo.Position.x, swapTo.Position.y, 0 ) );
 
@@ -78,6 +82,12 @@ public class DraggableInteraction
         }
     }
 
+    /**
+     * Handles fight interaction and network replication between two draggables
+     * @param fightFrom Which tile wants to fight
+     * @param fightTo Which tile to fight with
+     * @param isLocal True if called locally, false if called by RPC.
+     */
     void Fight( Tile fightFrom, Tile fightTo, bool isLocal )
     {
         if( !fightFrom || !fightTo )
@@ -92,22 +102,20 @@ public class DraggableInteraction
                 Debug.Log( "isLocal: " + isLocal + "fightFrom wins!" );
 
                 fightTo.Contains.Die( isLocal );
-                if( isLocal ) GameMap.SINGLETON.MoveRowForwards( fightFrom.Position.y, fightFrom.Contains.Side );
-                else Swap( fightFrom, fightTo, isLocal );
+                if( isLocal ) GameMap.SINGLETON.MoveRowForwards( fightFrom.Position.y, fightFrom.Contains.Side ); // MoveRowForwards handles replication
+                else Swap( fightFrom, fightTo, isLocal ); // If we are receicing a fight from the other player, replicate the fight
             } 
             else if( winner == fightTo )
             {
                 Debug.Log( "isLocal: " + isLocal + "fightTo wins!" );
 
                 fightFrom.Contains.Die( isLocal );
-                if( isLocal ) GameMap.SINGLETON.MoveRowForwards( fightTo.Position.y, fightTo.Contains.Side );
-                else Swap( fightFrom, fightTo, isLocal );
+                if( isLocal ) GameMap.SINGLETON.MoveRowForwards( fightTo.Position.y, fightTo.Contains.Side ); // MoveRowForwards handles replication
+                else Swap( fightFrom, fightTo, isLocal ); // If we are receicing a fight from the other player, replicate the fight
             } 
             else
             {
                 Debug.Log( "Nobody wins! " );
-
-                //if( isLocal ) RPCManager.SINGLETON.SendMove( new Vector3( fightFrom.Position.x, fightFrom.Position.y, 0 ), new Vector3( fightTo.Position.x, fightTo.Position.y, 0 ) );
 
                 int fightFromY, fightToY;
                 fightFromY = fightFrom.Position.y;
@@ -126,6 +134,11 @@ public class DraggableInteraction
         }
     }
 
+    /**
+     * Handles spawn interaction between UI draggable and Tile draggable
+     * @param unitPanel The UI panel the spawn is happening with
+     * @param spawnOn The tile that the user wants to spawn the unit on
+     */
     public void Spawn( UnitPanelUI unitPanel, Tile spawnOn )
     {
         if( !unitPanel || !spawnOn ) // One or more objects are null

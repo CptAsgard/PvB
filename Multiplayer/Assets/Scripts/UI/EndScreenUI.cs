@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/**
+ * Simple handler for the ending screen
+ */
 public class EndScreenUI : MonoBehaviour, MessageReceiver<EndGame> {
 
     void Awake()
