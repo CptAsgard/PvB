@@ -4,7 +4,7 @@
 - Link naar broncode (github)				https://github.com/CptAsgard/PvB				
 - Gedocumenteerde code (link)				http://cptasgard.github.io/html/
 
-- Contactverslagen (pdf)				Moet nog de folder in!
-- Course of action sheet				Moet nog van doc naar pdf geconvert
+- Contactverslagen (pdf)				DONE, staat in folder
+- Course of action sheet				DONE, staat in folder
 - Bijgewerkt technisch en functioneel ontwerp (pdf)	DONE, staat in folder
 - Testscenario's (pdf) 					DONE, staat in folder
