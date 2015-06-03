@@ -808,6 +808,9 @@ GameObject:
   m_Component:
   - 4: {fileID: 1436607539}
   - 114: {fileID: 1436607538}
+  - 82: {fileID: 1436607540}
+  - 114: {fileID: 1436607541}
+  - 114: {fileID: 1436607542}
   m_Layer: 0
   m_Name: AudioPlayer
   m_TagString: Untagged
@@ -843,6 +846,101 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 6
+--- !u!82 &1436607540
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1436607537}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: .5
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+--- !u!114 &1436607541
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1436607537}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0fb77ac8def3be4bae38b1d6a7d04aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FadeOutThreshold: .0500000007
+  FadeSpeed: .150000006
+--- !u!114 &1436607542
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1436607537}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ecb2e85bce9ef34e9c6b6a5823b2b6f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  battleMusic: {fileID: 8300000, guid: 4c2625a8e5dddfb4a85a1b14bd02c97c, type: 3}
+  calmMusic: {fileID: 8300000, guid: c78301e05f101914b8c39184f7d7dcb1, type: 3}
 --- !u!1 &1443187153
 GameObject:
   m_ObjectHideFlags: 0
@@ -1091,7 +1189,7 @@ Prefab:
     - {fileID: 11433642, guid: d7edc6f92f913f74485450a2e68ad703, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: d7edc6f92f913f74485450a2e68ad703, type: 2}
   m_IsPrefabParent: 0
---- !u!1 &1462363298 stripped
+--- !u!1 &1462363298
 GameObject:
   m_PrefabParentObject: {fileID: 129984, guid: d7edc6f92f913f74485450a2e68ad703, type: 2}
   m_PrefabInternal: {fileID: 1462363297}

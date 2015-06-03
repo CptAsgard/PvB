@@ -37,3 +37,8 @@ public struct PlaySound
 {
     public int audioclip;
 }
+
+public struct StartBattleMusic
+{
+
+}
