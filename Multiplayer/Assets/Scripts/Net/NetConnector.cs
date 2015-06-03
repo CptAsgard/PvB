@@ -24,6 +24,8 @@ public class NetConnector : MonoBehaviour
 
         //Get local address.
         IPAddress[] addr = System.Net.Dns.GetHostEntry(System.Net.Dns.GetHostName()).AddressList;
+        foreach(IPAddress address in addr)
+            Debug.Log(address);
         LocalAddress = addr[addr.Length - 1].ToString();
         MainMenuUI.SINGLETON.ShowLocalAddress(LocalAddress);
 	}

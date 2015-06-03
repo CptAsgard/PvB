@@ -147,6 +147,11 @@ public class DraggableInteraction
         if( unitPanel.AmountSpawnable <= 0 )
             return;
 
+
+        Messenger.Bus.Route<PlaySound>(new PlaySound()
+        {
+            audioclip = 2
+        });
         GameObject spawner = GameObject.Instantiate( Resources.Load( "UnitSpawner" ) as GameObject );
         spawner.GetComponent<UnitSpawner>().Init( spawnOn, unitPanel.Type, Side.BLUE );
 

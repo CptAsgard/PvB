@@ -32,3 +32,8 @@ public struct NetworkServerInitialized
 
 public struct NetworkClientInitialized
 { }
+
+public struct PlaySound
+{
+    public int audioclip;
+}

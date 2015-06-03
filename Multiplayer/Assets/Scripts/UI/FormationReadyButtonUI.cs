@@ -16,6 +16,10 @@ public class FormationReadyButtonUI : MonoBehaviour, MessageReceiver<ClientForma
 
     public void HandleMessage( ClientFormationSetupReady msg )
     {
+        Messenger.Bus.Route<PlaySound>(new PlaySound()
+        {
+            audioclip = 2
+        });
         iTween.MoveTo( gameObject, iTween.Hash( "time", 2, "y", 168, "islocal", true ) );
     }
 

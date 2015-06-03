@@ -51,6 +51,11 @@ public class Unit : MonoBehaviour {
             currentTile.Contains = temp;
             //temp.transform.position = currentTile.transform.position;
         }
+
+        Messenger.Bus.Route(new PlaySound()
+        {
+            audioclip = 0
+        });
     }
 
     /**
@@ -67,6 +72,11 @@ public class Unit : MonoBehaviour {
         OnTile.Contains = null;
 
         iTween.ColorTo( gameObject.transform.GetChild( 0 ).GetChild( 0 ).gameObject, iTween.Hash( "time", 0.5f, "r", 0.0f, "g", 0.0f, "b", 0.0f, "a", 0.0f, "oncomplete", "KillSelf" ) );
+
+        Messenger.Bus.Route<PlaySound>(new PlaySound()
+        {
+            audioclip = 1
+        });
     }
 
     private void KillSelf()
