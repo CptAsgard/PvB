@@ -21,11 +21,6 @@ public class FormationFilledChecker : MonoBehaviour {
 
             Messenger.Bus.Route( new ClientFormationSetupReady() );
             flagged = true;
-        } 
-        else if( flagged ) // Should never hit
-        {
-            Messenger.Bus.Route( new ClientFormationSetupUnready() );
-            flagged = false;
         }
     }
 

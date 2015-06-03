@@ -13,6 +13,6 @@ public class UnitPanelBackgroundUI : MonoBehaviour, MessageReceiver<StartGame>
 
     public void HandleMessage( StartGame msg )
     {
-        iTween.MoveTo( gameObject, gameObject.transform.position - new Vector3( 0, 100, 0 ), 2 );
+        iTween.MoveTo( gameObject, gameObject.transform.position - new Vector3( 0, 500, 0 ), 2 );
     }
 }

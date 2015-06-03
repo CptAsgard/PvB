@@ -5,24 +5,18 @@ using System.Collections;
 /**
  * Button to press if the formation is ready and the player wants to start
  */
-public class FormationReadyButtonUI : MonoBehaviour, MessageReceiver<ClientFormationSetupReady>, MessageReceiver<ClientFormationSetupUnready>
+public class FormationReadyButtonUI : MonoBehaviour, MessageReceiver<ClientFormationSetupReady>
 {
     private bool hasBeenClicked;
 
     void Awake()
     {
         this.Subscribe<ClientFormationSetupReady>( Messenger.Bus );
-        this.Subscribe<ClientFormationSetupUnready>( Messenger.Bus );
     }
 
     public void HandleMessage( ClientFormationSetupReady msg )
     {
-        iTween.MoveTo( gameObject, gameObject.transform.position - new Vector3( 0, 100, 0 ), 2 );
-    }
-
-    public void HandleMessage( ClientFormationSetupUnready msg )
-    {
-        iTween.MoveTo( gameObject, gameObject.transform.position + new Vector3( 0, 100, 0 ), 2 );
+        iTween.MoveTo( gameObject, iTween.Hash( "time", 2, "y", 168, "islocal", true ) );
     }
 
     public void OnButtonClick()
@@ -60,6 +54,6 @@ public class FormationReadyButtonUI : MonoBehaviour, MessageReceiver<ClientForma
 
         GameState.StartGame();
 
-        iTween.MoveTo( gameObject, gameObject.transform.position + new Vector3( 0, 100, 0 ), 2 );
+        iTween.MoveTo( gameObject, gameObject.transform.position + new Vector3( 0, 500, 0 ), 2 );
     }
 }

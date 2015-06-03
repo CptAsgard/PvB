@@ -13,6 +13,6 @@ public class RotateSkybox : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        transform.Rotate( Vector3.up, 1 * Speed );   
+        transform.Rotate( Vector3.up, 1 * Speed * Time.deltaTime );   
 	}
 }

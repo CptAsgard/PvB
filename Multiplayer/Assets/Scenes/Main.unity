@@ -1047,7 +1047,7 @@ Prefab:
     - {fileID: 11433642, guid: d7edc6f92f913f74485450a2e68ad703, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: d7edc6f92f913f74485450a2e68ad703, type: 2}
   m_IsPrefabParent: 0
---- !u!1 &1462363298 stripped
+--- !u!1 &1462363298
 GameObject:
   m_PrefabParentObject: {fileID: 129984, guid: d7edc6f92f913f74485450a2e68ad703, type: 2}
   m_PrefabInternal: {fileID: 1462363297}
