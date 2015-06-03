@@ -51,11 +51,6 @@ public class Unit : MonoBehaviour {
             currentTile.Contains = temp;
             //temp.transform.position = currentTile.transform.position;
         }
-
-        Messenger.Bus.Route(new PlaySound()
-        {
-            audioclip = 0
-        });
     }
 
     /**

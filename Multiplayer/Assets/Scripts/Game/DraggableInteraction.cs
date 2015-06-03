@@ -71,7 +71,11 @@ public class DraggableInteraction
 
             if( swapTo.Contains )
                 iTween.MoveTo( swapTo.Contains.gameObject, iTween.Hash( "position", swapFrom.transform.position, "time", 1, "easetype", iTween.EaseType.easeInOutSine ) );
-            
+
+            Messenger.Bus.Route(new PlaySound()
+            {
+                audioclip = 0
+            });
             swapFrom.Contains.SwapWith( swapTo );
 
             // Replicate behaviour to other person if it's a local call
