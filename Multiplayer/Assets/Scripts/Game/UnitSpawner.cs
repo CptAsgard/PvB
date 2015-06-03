@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
 
 /**
  * Handles spawning of units on the game board
@@ -8,7 +9,7 @@ using System.Collections;
 public class UnitSpawner : MonoBehaviour {
 
     public GameObject UnitPrefabTEMP;
-
+    public List<Sprite> UnitSprites;
     public Transform root;
 
     private Tile SpawnOnTile;
@@ -35,10 +36,9 @@ public class UnitSpawner : MonoBehaviour {
         unit.OnTile = spawnOn;
         unit.Type = type;
         unit.Side = side;
-        unit.transform.GetChild(0).GetComponent<MeshRenderer>().material.color = ( unit.Side == Side.RED ? Color.red : Color.blue );
-
-        if( side == Side.RED )
-            unit.transform.GetChild( 1 ).gameObject.SetActive( false );
+        
+        if( unit.Side == Side.BLUE )
+            unit.transform.GetChild( 0 ).GetChild( 0 ).GetComponent<SpriteRenderer>().sprite = UnitSprites[ (int) unit.Type ];
 
         spawnOn.Contains = unit;
 

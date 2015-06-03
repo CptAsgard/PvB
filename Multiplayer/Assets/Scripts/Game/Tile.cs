@@ -7,22 +7,28 @@ using System.Collections;
 public class Tile : MonoBehaviour, MessageReceiver<StartGame>
 {
     private Side __side;
-    public Side Side {
-        get {
+    public Side Side
+    {
+        get
+        {
             return __side;
         }
-        set {
+        set
+        {
             __side = value;
             //SetColor( value );
         }
     }
 
     private GridPosition __position;
-    public GridPosition Position {
-        get {
+    public GridPosition Position
+    {
+        get
+        {
             return __position;
         }
-        set {
+        set
+        {
             __position = value;
             SetWorldPosition();
         }
@@ -55,12 +61,15 @@ public class Tile : MonoBehaviour, MessageReceiver<StartGame>
         this.Subscribe<StartGame>( Messenger.Bus );
     }
 
-    private void SetWorldPosition() {
-        gameObject.transform.position = new Vector3( (Position.x * 0.07f) - 0.025f, 0, (Position.y * 0.0755f) + 1.0245f );
+    private void SetWorldPosition()
+    {
+        gameObject.transform.position = new Vector3( ( Position.x * 0.07f ) - 0.0255f, 0, ( Position.y * 0.076f ) + 1.0245f );
     }
 
-    private void SetColor( Side side ) {
-        switch( side ) {
+    private void SetColor( Side side )
+    {
+        switch( side )
+        {
             case global::Side.BLUE:
                 gameObject.GetComponentInChildren<Renderer>().material = BlueMaterial;
                 break;
