@@ -832,7 +832,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AudioClips:
   - {fileID: 8300000, guid: 8c8e01e0e493c464ab3f4f3acd536a42, type: 3}
-  - {fileID: 8300000, guid: b7c0dd9db5adb584b96124095ace52fa, type: 3}
+  - {fileID: 8300000, guid: 8c8e01e0e493c464ab3f4f3acd536a42, type: 3}
   - {fileID: 8300000, guid: 29b6bbbda0fbd1f4ca8f0dc985466dee, type: 3}
 --- !u!4 &1436607539
 Transform:
@@ -927,7 +927,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FadeOutThreshold: .0500000007
-  FadeSpeed: .150000006
+  FadeSpeed: .100000001
 --- !u!114 &1436607542
 MonoBehaviour:
   m_ObjectHideFlags: 0

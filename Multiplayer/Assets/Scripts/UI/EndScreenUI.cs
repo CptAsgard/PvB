@@ -19,10 +19,10 @@ public class EndScreenUI : MonoBehaviour, MessageReceiver<EndGame> {
     {
         Transform target;
         if( msg.winner == Side.BLUE ) {
-            target = transform.GetChild( 0 );
+            target = transform.GetChild( 1 );
             target.gameObject.SetActive( true );
         } else {
-            target = transform.GetChild( 1 );
+            target = transform.GetChild( 0 );
             target.gameObject.SetActive( true );
         }
 
