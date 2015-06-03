@@ -65,6 +65,12 @@ public class Unit : MonoBehaviour {
         Debug.Log( "UNIT DIED" );
 
         OnTile.Contains = null;
+
+        iTween.ColorTo( gameObject.transform.GetChild( 0 ).GetChild( 0 ).gameObject, iTween.Hash( "time", 0.5f, "r", 0.0f, "g", 0.0f, "b", 0.0f, "a", 0.0f, "oncomplete", "KillSelf" ) );
+    }
+
+    private void KillSelf()
+    {
         Destroy( gameObject );
     }
 }

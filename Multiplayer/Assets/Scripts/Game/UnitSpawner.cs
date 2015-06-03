@@ -39,6 +39,8 @@ public class UnitSpawner : MonoBehaviour {
         
         if( unit.Side == Side.BLUE )
             unit.transform.GetChild( 0 ).GetChild( 0 ).GetComponent<SpriteRenderer>().sprite = UnitSprites[ (int) unit.Type ];
+        else
+            unit.transform.GetChild( 0 ).GetChild( 0 ).GetComponent<SpriteRenderer>().sprite = UnitSprites[ 8 ];
 
         spawnOn.Contains = unit;
 

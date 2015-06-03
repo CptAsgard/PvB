@@ -32,13 +32,17 @@ public class UnitPanelUI : MonoBehaviour
 
     void Start()
     {
-        text = transform.GetChild( 0 ).GetComponent<Text>();
-        text.text = ( (int) Type ).ToString();
+        text = transform.parent.GetChild( 1 ).GetChild( 0 ).GetComponent<Text>();
+    }
+
+    void Update()
+    {
+        text.text = ( (int) AmountSpawnable ).ToString();
     }
 
     void DisablePanel()
     {
-        gameObject.SetActive( false );
+        GetComponent<Draggable>().enabled = false;
     }
 
     void EnablePanel()
