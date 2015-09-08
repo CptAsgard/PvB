@@ -87,6 +87,11 @@ public class DraggableInteraction
     }
 
     /**
+     * TODO: This function might be the biggest source of issues. It's a clusterfuck.
+     * It checks if the move to fight is valid, it handles the winner/loser, it moves the
+     * rows forwards, it kills the unit that dies in the fight
+     * How can we decouple this?
+
      * Handles fight interaction and network replication between two draggables
      * @param fightFrom Which tile wants to fight
      * @param fightTo Which tile to fight with

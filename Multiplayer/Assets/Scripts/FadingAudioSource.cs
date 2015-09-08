@@ -3,7 +3,7 @@
 /// <summary>
 ///   Audio source that fades between clips instead of playing them immediately.
 /// </summary>
-[RequireComponent( typeof( AudioSource ) )]
+[RequireComponent(typeof(AudioSource))]
 public class FadingAudioSource : MonoBehaviour
 {
     #region Fields
@@ -63,8 +63,10 @@ public class FadingAudioSource : MonoBehaviour
     /// <summary>
     ///   Current clip of the audio source.
     /// </summary>
-    public AudioClip Clip {
-        get {
+    public AudioClip Clip
+    {
+        get
+        {
             return this.audioSource.clip;
         }
     }
@@ -72,8 +74,10 @@ public class FadingAudioSource : MonoBehaviour
     /// <summary>
     ///   Whether the audio source is currently playing a clip.
     /// </summary>
-    public bool IsPlaying {
-        get {
+    public bool IsPlaying
+    {
+        get
+        {
             return this.audioSource.isPlaying;
         }
     }
@@ -81,8 +85,10 @@ public class FadingAudioSource : MonoBehaviour
     /// <summary>
     ///   Whether the audio source is looping the current clip.
     /// </summary>
-    public bool Loop {
-        get {
+    public bool Loop
+    {
+        get
+        {
             return this.audioSource.loop;
         }
     }
@@ -90,8 +96,10 @@ public class FadingAudioSource : MonoBehaviour
     /// <summary>
     ///   Current volume of the audio source.
     /// </summary>
-    public float Volume {
-        get {
+    public float Volume
+    {
+        get
+        {
             return this.audioSource.volume;
         }
     }
@@ -108,8 +116,10 @@ public class FadingAudioSource : MonoBehaviour
     /// <param name="clip">Clip to fade in.</param>
     /// <param name="volume">Volume to fade to.</param>
     /// <param name="loop">Whether to loop the new clip, or not.</param>
-    public void Fade( AudioClip clip, float volume, bool loop ) {
-        if( clip == null || clip == this.audioSource.clip ) {
+    public void Fade(AudioClip clip, float volume, bool loop)
+    {
+        if (clip == null || clip == this.audioSource.clip)
+        {
             return;
         }
 
@@ -117,13 +127,19 @@ public class FadingAudioSource : MonoBehaviour
         this.nextClipVolume = volume;
         this.nextClipLoop = loop;
 
-        if( this.audioSource.enabled ) {
-            if( this.IsPlaying ) {
+        if (this.audioSource.enabled)
+        {
+            if (this.IsPlaying)
+            {
                 this.fadeState = FadeState.FadingOut;
-            } else {
+            }
+            else
+            {
                 this.FadeToNextClip();
             }
-        } else {
+        }
+        else
+        {
             this.FadeToNextClip();
         }
     }
@@ -131,7 +147,8 @@ public class FadingAudioSource : MonoBehaviour
     /// <summary>
     ///   Continues fading in the current audio clip.
     /// </summary>
-    public void Play() {
+    public void Play()
+    {
         this.fadeState = FadeState.FadingIn;
         this.audioSource.Play();
     }
@@ -139,7 +156,8 @@ public class FadingAudioSource : MonoBehaviour
     /// <summary>
     ///   Stop playing the current audio clip immediately.
     /// </summary>
-    public void Stop() {
+    public void Stop()
+    {
         this.audioSource.Stop();
         this.fadeState = FadeState.None;
     }
@@ -148,50 +166,66 @@ public class FadingAudioSource : MonoBehaviour
 
     #region Methods
 
-    private void Awake() {
+    private void Awake()
+    {
         this.audioSource = this.GetComponent<AudioSource>();
         this.audioSource.volume = 0f;
     }
 
-    private void FadeToNextClip() {
+    private void FadeToNextClip()
+    {
         this.audioSource.clip = this.nextClip;
         this.audioSource.loop = this.nextClipLoop;
 
         this.fadeState = FadeState.FadingIn;
 
-        if( this.audioSource.enabled ) {
+        if (this.audioSource.enabled)
+        {
             this.audioSource.Play();
         }
     }
 
-    private void OnDisable() {
+    private void OnDisable()
+    {
         this.audioSource.enabled = false;
         this.Stop();
     }
 
-    private void OnEnable() {
+    private void OnEnable()
+    {
         this.audioSource.enabled = true;
         this.Play();
     }
 
-    private void Update() {
-        if( !this.audioSource.enabled ) {
+    private void Update()
+    {
+        if (!this.audioSource.enabled)
+        {
             return;
         }
 
-        if( this.fadeState == FadeState.FadingOut ) {
-            if( this.audioSource.volume > this.FadeOutThreshold ) {
+        if (this.fadeState == FadeState.FadingOut)
+        {
+            if (this.audioSource.volume > this.FadeOutThreshold)
+            {
                 // Fade out current clip.
                 this.audioSource.volume -= this.FadeSpeed * Time.deltaTime;
-            } else {
+            }
+            else
+            {
                 // Start fading in next clip.
                 this.FadeToNextClip();
             }
-        } else if( this.fadeState == FadeState.FadingIn ) {
-            if( this.audioSource.volume < this.nextClipVolume ) {
+        }
+        else if (this.fadeState == FadeState.FadingIn)
+        {
+            if (this.audioSource.volume < this.nextClipVolume)
+            {
                 // Fade in next clip.
                 this.audioSource.volume += this.FadeSpeed * Time.deltaTime;
-            } else {
+            }
+            else
+            {
                 // Stop fading in.
                 this.fadeState = FadeState.None;
             }

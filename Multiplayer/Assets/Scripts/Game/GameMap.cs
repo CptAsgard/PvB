@@ -54,8 +54,9 @@ public class GameMap : MonoBehaviour, MessageReceiver<NetworkClientInitialized>,
     {
         foreach( Tile t in Tiles )
         {
-            if( t.Position.x == pos.x && t.Position.y == pos.y )
+            if( t.Position.x == pos.x && t.Position.y == pos.y ) {
                 return t;
+            }
         }
 
         return null;

@@ -19,7 +19,7 @@ public class MainMenuUI : MonoBehaviour
 
     public void StartHosting()
     {
-        Messenger.Bus.Route<PlaySound>(new PlaySound() {
+        Messenger.Bus.Route(new PlaySound() {
             audioclip = 2
         });
         NetConnector.SINGLETON.Host();
